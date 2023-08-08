@@ -1,10 +1,7 @@
 import React from 'react';
 
 const LoginPage = () => {
-  return (
-    <>
-    </>
-  )
-}
+  return <></>;
+};
 
- export default LoginPage; 
+export default LoginPage;
