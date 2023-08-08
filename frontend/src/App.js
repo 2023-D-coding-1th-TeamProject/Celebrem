@@ -1,9 +1,11 @@
-const App = () =>  {
+import React from 'react';
+
+const App = () => {
   return (
     <>
-    <h1>테스트입니다</h1>
+      <h1>테스트입니다</h1>
     </>
   );
-}
+};
 
 export default App;
