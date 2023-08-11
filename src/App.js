@@ -1,9 +1,16 @@
 import React from 'react';
+import GlobalReset from './styles/GlobalReset';
+import { ThemeProvider } from 'styled-components';
+import Theme from './styles/Theme';
+import AppRouter from './routes/AppRouter';
 
 const App = () => {
   return (
     <>
-      <h1>테스트입니다</h1>
+      <GlobalReset />
+      <ThemeProvider theme={Theme}>
+        <AppRouter />
+      </ThemeProvider>
     </>
   );
 };
