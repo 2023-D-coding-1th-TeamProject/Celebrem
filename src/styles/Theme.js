@@ -15,8 +15,8 @@ const colors = {
 };
 
 const fonts = {
-  xxs: '1rem',
-  xs: '1.2rem',
+  xs: '1rem',
+  s: '1.2rem',
   base: '1.6rem',
   md: '1.8rem',
   lg: '2.0rem',
