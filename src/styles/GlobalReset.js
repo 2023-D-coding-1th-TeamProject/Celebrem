@@ -3,11 +3,12 @@ import reset from 'styled-reset';
 
 const GlobalReset = createGlobalStyle`
     ${reset};
-    *{
+  *{
 		box-sizing: border-box;
 	}
 	:root{
 		font-size: 10px;
+		font-family: 'Noto Sans KR', sans-serif;
 	}
     div, span, 
     h1, h2, h3, h4, h5, h6, p,
@@ -53,6 +54,9 @@ const GlobalReset = createGlobalStyle`
 		background: unset;
 		border: unset;	
 		font: inherit;
+	}
+	input:focus {
+		outline: none;
 	}
 	textarea {
 		border: none;
