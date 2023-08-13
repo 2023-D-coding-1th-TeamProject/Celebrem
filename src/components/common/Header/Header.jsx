@@ -23,7 +23,7 @@ const Header = () => {
   // 더미 데이터
   const isLoggedIn = true;
   const hasUnRead = false;
-  const isInfluncer = false;
+  const isInfluencer = false;
 
   return (
     <>
@@ -49,11 +49,11 @@ const Header = () => {
                 </li>
                 <li>
                   <img
-                    src={isInfluncer ? INFPROFILE : ADPROFILE}
-                    alt="내 프로필로 가기"
-                    onClick={() => navigate('/profile')}
+                    src={isInfluencer ? INFPROFILE : ADPROFILE}
+                    alt="마이페이지로 가기"
+                    onClick={() => navigate('/mypage')}
                   />
-                  <span>마이 프로필</span>
+                  <span>마이 페이지</span>
                 </li>
               </MenuList>
             ) : (
