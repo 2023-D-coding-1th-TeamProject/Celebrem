@@ -1,16 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
+import Header from '../../components/common/Header/Header';
 
 const HomePage = () => {
   return (
     <>
-      <H1>홈페이지입니다</H1>
+      <Header />
     </>
   );
 };
 
 export default HomePage;
-
-const H1 = styled.h1`
-  color: ${({ theme }) => theme.colors.red};
-`;
