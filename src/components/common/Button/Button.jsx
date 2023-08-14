@@ -1,6 +1,6 @@
 // Button.jsx
-import React from "react";
-import styled, { css } from "styled-components";
+import React from 'react';
+import styled, { css } from 'styled-components';
 
 const SIZES = {
   //바로가기, 입장하기-둥글
@@ -43,39 +43,36 @@ const SIZES = {
 const VARIANTS = {
   //필요없음 //디폴트
   yes: css`
-    --button-bg-color: #F38252;
-    --button-hover-bg-color: #C36035;
+    --button-bg-color: #f38252;
+    --button-hover-bg-color: #c36035;
   `,
   no: css`
-    --button-bg-color: #B4B4B4;
-    --button-hover-bg-color: #9F9B9B;
+    --button-bg-color: #b4b4b4;
+    --button-hover-bg-color: #9f9b9b;
   `,
   //인스타그램 연결, 이메일 중복 확인, 닉네임 중복 확인
   soft: css`
-    --button-color: #F38252;
+    --button-color: #f38252;
     --button-bg-color: rgba(243, 130, 81, 0.15);
-    --button-hover-bg-color: rgba(243, 130, 82, 0.50);
-  `
+    --button-hover-bg-color: rgba(243, 130, 82, 0.5);
+  `,
 };
 
-function Button({ disabled, size, children }) {
+// eslint-disable-next-line react/prop-types
+function Button({ disabled, size, variant, children }) {
   const sizeStyle = SIZES[size];
   const variantStyle = VARIANTS[variant];
 
   return (
-    <StyledButton
-      disabled={disabled}
-      sizeStyle={sizeStyle}
-      variantStyle={variantStyle}
-    >
+    <StyledButton disabled={disabled} $sizeStyle={sizeStyle} $variantStyle={variantStyle}>
       {children}
     </StyledButton>
   );
 }
 
 const StyledButton = styled.button`
-  ${(p) => p.sizeStyle}
-  ${(p) => p.variantStyle}
+  ${p => p.$sizeStyle}
+  ${p => p.$variantStyle}
 
   margin: 0;
   border: none;
