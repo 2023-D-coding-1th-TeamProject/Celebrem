@@ -6,7 +6,7 @@ import NOTIFYUNREAD from '../../../assets/icons/icon-notify-unread.svg';
 import NOTIFY from '../../../assets/icons/icon-notify.svg';
 import ADPROFILE from '../../../assets/images/profile-img-xxs.svg';
 import INFPROFILE from '../../../assets/images/profileInf-img-xxs.svg';
-import Search from '../Search/Search';
+
 import {
   HeaderStyle,
   Wrapper,
