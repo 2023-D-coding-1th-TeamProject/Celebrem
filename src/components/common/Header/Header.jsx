@@ -34,6 +34,7 @@ const Header = () => {
             <Link to="/">
               <img src={LOGO} alt="celebrem 로고" />
             </Link>
+            <Search />
           </HeaderLeftStyle>
           <HeaderRightStyle>
             {isLoggedIn ? (
