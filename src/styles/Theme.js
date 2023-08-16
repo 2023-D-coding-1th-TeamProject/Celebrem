@@ -11,7 +11,7 @@ const colors = {
   white: '#fff',
   red: '#D91B1B',
   blue: '#1B23D9',
-  opacity: 'rgba(0, 0, 0, 0.15)',
+  opacity: 'rgba(0, 0, 0, 0.2)',
   influencer: 'linear-gradient(60deg, #FF8C21 13.4%, #F5576E 86.6%)',
 };
 
