@@ -6,6 +6,8 @@ import SignupPage from '../pages/SignupPage/SignupPage';
 
 import SearchPage from '../pages/SearchPage/SearchPage';
 import AccountPage from '../pages/AccountPage/AccountPage';
+import AccountEditPage from '../pages/AccountPage/AccountEdit/AccountEditPage';
+import RegisterPage from '../pages/RegisterPage/RegisterPage';
 import ChatListPage from '../pages/ChatPage/ChatListPage/ChatListPage';
 import ChatRoomPage from '../pages/ChatPage/ChatRoomPage/ChatRoomPage';
 
@@ -20,7 +22,11 @@ const AppRouter = () => {
         <Route path="/signup" element={<SignupPage />} />
 
         <Route path="/search" element={<SearchPage />} />
-        <Route path="/mypage/*" element={<AccountPage />} />
+        <Route path="/mypage">
+          <Route index element={<AccountPage />} />
+          <Route path="edit" element={<AccountEditPage />} />
+          <Route path="register" element={<RegisterPage />} />
+        </Route>
         <Route path="/chat" element={<ChatListPage />} />
         <Route path="/chat/:accountname" element={<ChatRoomPage />} />
         <Route path="*" element={<NotFoundPage />} />
