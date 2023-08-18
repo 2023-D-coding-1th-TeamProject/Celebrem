@@ -1,73 +1,79 @@
+
 .signup{
     display: flex;
-    width: 100%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
 }
+
+.img {
+    margin: 10rem auto 5rem; 
+}
+
 .form{
-    width: 600px;
+    width: 62.6rem;
     display: flex;
     flex-direction: column;
-    padding: 0;
     font-size: 15px;
 }
-.input{
-    width: 600px;
-    display: flex;
-}
-.input input{
-    width: 70%;
-    height: 3.5em;
-    padding-left: 0.5em;
-    margin-top: 0.5em;
-    border: 1px solid rgb(192, 192, 192);
-    border-radius: 4px;
-    margin-bottom: 1em;
-}
-.pw{
-    width: 600px;
-    margin-top: 1em;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-}
-.pw input{
-    width: 90%;
-    height: 3.5em;
-    padding-left: 0.5em;
-    margin-top: 0.5em;
-    border: 1px solid rgb(192, 192, 192);
-    border-radius: 4px;
-}
-.pw .form{
 
+.input{
+    display: flex;
+    align-items: center;
+    gap: 18px;
 }
+
+.input input{
+    width: 48.5rem;
+    padding: 1.6rem 1.5rem;
+    margin: 1.6rem 0;
+    border: 1px solid rgb(192, 192, 192);
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.pw{
+    width: 62.6rem;
+    display: flex;
+    gap: 3.6rem;
+}
+
+.pw input{
+    width: 29.5rem;
+    padding: 1.6rem 1.5rem;
+    margin: 1.6rem 0;
+    border: 1px solid rgb(192, 192, 192);
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
 .checkBtn{
-    width: 30%;
+    width: 12.3rem;
+    padding: 1.4rem 0;
     margin-left: 1em;
-    height: 3.5em;
     border-radius: 4px;
     border: none;
     background-color: #fff3ee;
     color: #F38252;
 }
-.checkBtn:hover{
-    background-color: #F38252;
-    color: #ffffff;
-}
+
 .signupBtn{
-    width: 615px;
-    margin-left: 1em;
-    height: 3.5em;
-    border-radius: 4px;
-    border: none;
+    width: 62.6rem;
+    padding: 1.9rem 0;
+    border-radius: 10px;
     background-color: #ffbca0;
     color: #fcfcfc;
-    font-weight: bolder;
-}
-.signupBtn:hover{
-    background-color: #F38252;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-top: 1.6rem;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
 }
