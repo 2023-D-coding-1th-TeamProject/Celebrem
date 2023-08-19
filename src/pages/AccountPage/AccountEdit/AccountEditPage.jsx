@@ -3,8 +3,12 @@ import styled from 'styled-components';
 import Header from '../../../components/common/Header/Header';
 import BASICPROFILEIMAGE from '../../../assets/images/profile-img-l.svg';
 import ADDIMAGE from '../../../assets/icons/icon-upload.svg';
+import CheckTags from '../../../components/common/Tags/CheckTags';
 
 const AccountEditPage = () => {
+  // 더미데이터 (인플루언서인지 확인여부)
+  const isInfluencer = true;
+
   return (
     <>
       <AccountEditPageWrapper>
@@ -18,6 +22,14 @@ const AccountEditPage = () => {
           <p>celebrem@test.com</p>
           <Label>소개</Label>
           <Description placeholder="나에 대한 소개글을 작성해주세요!"></Description>
+          {isInfluencer && (
+            <>
+              <Label>인스타그램 아이디</Label>
+              <TextInput value="인스타그램"></TextInput>
+              <Label>태그 설정하기</Label>
+              <CheckTags />
+            </>
+          )}
           <button>수정 완료</button>
         </Form>
       </AccountEditPageWrapper>
@@ -71,6 +83,7 @@ const ImageLabel = styled.label`
     height: 3.6rem;
     background: url(${ADDIMAGE}) no-repeat center / 3.6rem 3.6rem;
     z-index: 2;
+  }
 `;
 
 const Image = styled.img`
@@ -102,4 +115,13 @@ const Description = styled.textarea`
   border: 1px solid ${({ theme }) => theme.colors.gray200};
   margin-bottom: 3.6rem;
   color: ${({ theme }) => theme.colors.gray400};
+`;
+
+const TextInput = styled.input`
+  width: 48.5rem;
+  padding: 1.6rem 1.5rem;
+  border: 1px solid rgb(190, 190, 190);
+  border-radius: 5px;
+  margin-bottom: 2.4rem;
+  font-size: 16px;
 `;
