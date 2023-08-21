@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "userName": "celebrem1",
+    "instagramId": "insta1",
+    "likeCount": 12,
+    "isLiked": true,
+    "category": ["게임", "음악", "건강"]
+  },
+  {
+    "id": 2,
+    "userName": "celebrem2",
+    "instagramId": "insta2",
+    "likeCount": 15,
+    "isLiked": false,
+    "category": ["스포츠"]
+  },
+  {
+    "id": 3,
+    "userName": "celebrem3",
+    "instagramId": "insta3",
+    "likeCount": 10,
+    "isLiked": false,
+    "category": ["영화", "학습"]
+  },
+  {
+    "id": 4,
+    "userName": "celebrem3",
+    "instagramId": "insta3",
+    "likeCount": 10,
+    "isLiked": false,
+    "category": ["음악", "영화"]
+  },
+  {
+    "id": 5,
+    "userName": "celebrem3",
+    "instagramId": "insta3",
+    "likeCount": 10,
+    "isLiked": false,
+    "category": ["뷰티", "요리"]
+  },
+  {
+    "id": 6,
+    "userName": "celebrem3",
+    "instagramId": "insta3",
+    "likeCount": 10,
+    "isLiked": false,
+    "category": ["건강", "쇼핑"]
+  },
+  {
+    "id": 7,
+    "userName": "celebrem3",
+    "instagramId": "insta3",
+    "likeCount": 10,
+    "isLiked": false,
+    "category": ["음악", "뷰티"]
+  },
+  {
+    "id": 8,
+    "userName": "celebrem3",
+    "instagramId": "insta3",
+    "likeCount": 10,
+    "isLiked": false,
+    "category": ["요리"]
+  },
+  {
+    "id": 9,
+    "userName": "celebrem3",
+    "instagramId": "insta3",
+    "likeCount": 10,
+    "isLiked": false,
+    "category": ["게임", "영화"]
+  },
+  {
+    "id": 10,
+    "userName": "celebrem3",
+    "instagramId": "insta3",
+    "likeCount": 10,
+    "isLiked": false,
+    "category": ["스포츠", "건강", "쇼핑"]
+  }
+]
