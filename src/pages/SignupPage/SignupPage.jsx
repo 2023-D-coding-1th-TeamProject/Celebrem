@@ -2,7 +2,17 @@ import React from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
-import signupStyled from './signup.module.css';
+import {
+  SignupContainer,
+  LogoImage,
+  FormContainer,
+  InputContainer,
+  InputField,
+  PasswordContainer,
+  PasswordInputField,
+  CheckButton,
+  SignupButton,
+} from './SignupPageStyle'; 
 import LOGO from '../../assets/images/login-signup-logo-img.svg';
 
 function SignupPage() {
@@ -59,10 +69,11 @@ function SignupPage() {
   // 이메일 중복 확인 부분 [이메일 중복 확인 버튼]
   const onCheckEmail = e => {
     axios
-      .post('/auth/signup', {
-        Email: email,
+      .post('http://144.24.82.156:8080/auth/email-verification/send', {
+          email : email
       })
       .then(response => {
+        console.log(response.data);
         //true or false
         /* if(response.data.???){
                 alert('사용가능한 이메일입니다.');
@@ -76,8 +87,8 @@ function SignupPage() {
   // 닉네임 중복 확인 부분 [닉네임 중복 확인 버튼]
   const onCheckNickname = e => {
     axios
-      .post('/auth/signup', {
-        Email: email,
+      .post('http://144.24.82.156:8080/auth/signup/nickname-verification', {
+        nickname : nickname
       })
       .then(response => {
         //true or false
@@ -108,9 +119,10 @@ function SignupPage() {
     //POST 회원가입//
     axios
       .post('/auth/signup', {
-        useremail: email,
+        userName : email,
+        password : pw,
         nickname: nickname,
-        password: pw,
+        phoneNumber : "010-0000-0000"
       })
       .then(response => {
         console.log('Server response:', response.data);
@@ -123,79 +135,75 @@ function SignupPage() {
   };
 
   return (
-    <>
-      <div className={signupStyled.signup}>
-        <p>
-          <h1 className="a11y">Celebrem 로고</h1>
-          <Link to="/">
-            <img src={LOGO} alt="celebrem 로고" className={signupStyled.img} />
-          </Link>
-        </p>
-        <div className={signupStyled.form}>
-          <label htmlFor="email">이메일</label>
-          <div className={signupStyled.input}>
-            <input
-              id="email"
-              type="text"
-              placeholder="이메일을 입력해주세요"
-              name="name"
-              value={email}
-              onChange={onEmailChange}
-            ></input>
-            <button className={signupStyled.checkBtn} onClick={onCheckEmail}>
-              이메일 중복 확인
-            </button>
-          </div>
-        </div>
-
-        <div className={signupStyled.form}>
-          <label htmlFor="nickname">닉네임</label>
-          <div className={signupStyled.input}>
-            <input
-              id="nickname"
-              type="text"
-              placeholder="영문 16자나 숫자 또는 한글 6가 이내"
-              name="nickname"
-              value={nickname}
-              onChange={onNicknameChange}
-            ></input>
-            <button className={signupStyled.checkBtn} onClick={onCheckNickname}>
-              닉네임 중복 확인
-            </button>
-          </div>
-        </div>
-
-        <div className={signupStyled.pw}>
-          <div className={signupStyled.form}>
-            <label htmlFor="pw">비밀번호</label>
-            <input
-              id="pw"
-              type="password"
-              placeholder="비밀번호"
-              name="pw"
-              value={pw}
-              onChange={onPWChange}
-            ></input>
-            <p>{pwMessage}</p>
-          </div>
-          <div className={signupStyled.form}>
-            <label htmlFor="checkpw">비밀번호 확인</label>
-            <input
-              id="checkpw"
-              type="password"
-              placeholder="비밀번호 확인"
-              name="pw"
-              value={checkpw}
-              onChange={onCheckPWChange}
-            ></input>
-            <p>{checkpwMessage}</p>
-          </div>
-        </div>
-        <button className={signupStyled.signupBtn} onClick={sendSignUpData}>
-          회원 가입
-        </button>
-      </div>
-    </>
+      <>
+        <SignupContainer>
+          <p>
+            <h1 className="a11y">Celebrem 로고</h1>
+            <Link to="/">
+              <LogoImage src={LOGO} alt="celebrem 로고" />
+            </Link>
+          </p>
+          <FormContainer>
+            <label htmlFor="email">이메일</label>
+            <InputContainer>
+              <InputField
+                id="email"
+                type="text"
+                placeholder="이메일을 입력해주세요"
+                name="name"
+                value={email}
+                onChange={onEmailChange}
+              />
+              <CheckButton onClick={onCheckEmail}>이메일 중복 확인</CheckButton>
+            </InputContainer>
+          </FormContainer>
+  
+          <FormContainer>
+            <label htmlFor="nickname">닉네임</label>
+            <InputContainer>
+              <InputField
+                id="nickname"
+                type="text"
+                placeholder="영문 16자나 숫자 또는 한글 6가 이내"
+                name="nickname"
+                value={nickname}
+                onChange={onNicknameChange}
+              />
+              <CheckButton onClick={onCheckNickname}>닉네임 중복 확인</CheckButton>
+            </InputContainer>
+          </FormContainer>
+  
+          <PasswordContainer>
+            <FormContainer>
+              <label htmlFor="pw">비밀번호</label>
+              <PasswordInputField
+                id="pw"
+                type="password"
+                placeholder="비밀번호"
+                name="pw"
+                value={pw}
+                onChange={onPWChange}
+              />
+              <p>{pwMessage}</p>
+            </FormContainer>
+  
+            <FormContainer>
+              <label htmlFor="checkpw">비밀번호 확인</label>
+              <PasswordInputField
+                id="checkpw"
+                type="password"
+                placeholder="비밀번호 확인"
+                name="pw"
+                value={checkpw}
+                onChange={onCheckPWChange}
+              />
+              <p>{checkpwMessage}</p>
+            </FormContainer>
+          </PasswordContainer>
+  
+          <SignupButton onClick={sendSignUpData}>회원 가입</SignupButton>
+        </SignupContainer>
+      </>
   );
 }
 
