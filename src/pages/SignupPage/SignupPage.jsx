@@ -91,10 +91,7 @@ function SignupPage() {
         nickname : nickname
       })
       .then(response => {
-        //true or false
-        /* if(response.data.???){
-                alert('사용가능한 이메일입니다.');
-            } */
+        console.log(response); 
       })
       .catch(() => {
         alert('아직 서버 연결 ㄴㄴ');
@@ -118,11 +115,10 @@ function SignupPage() {
 
     //POST 회원가입//
     axios
-      .post('/auth/signup', {
-        userName : email,
+      .post('http://144.24.82.156:8080/auth/signup', {
+        email : email,
         password : pw,
         nickname: nickname,
-        phoneNumber : "010-0000-0000"
       })
       .then(response => {
         console.log('Server response:', response.data);
@@ -137,12 +133,10 @@ function SignupPage() {
   return (
       <>
         <SignupContainer>
-          <p>
             <h1 className="a11y">Celebrem 로고</h1>
             <Link to="/">
               <LogoImage src={LOGO} alt="celebrem 로고" />
             </Link>
-          </p>
           <FormContainer>
             <label htmlFor="email">이메일</label>
             <InputContainer>
