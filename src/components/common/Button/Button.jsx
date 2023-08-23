@@ -29,8 +29,12 @@ const SIZES = {
 
   //로그인, 수정완료, 채팅하기
   lg: css`
-    --button-font-size: 1.25rem;
-    --button-padding: 16px 20px;
+    ${({ theme }) => theme.colors.main};
+    --button-padding: 1.7rem 0;
+    --button-width: 48.5rem;
+    --button-font-weight: bold;
+    --button-font-size: 18px;
+    --button-margin: 1.6rem auto 2.5rem;
   `,
   //등록완료, 회원가입(disabled)
   lg2: css`
@@ -74,27 +78,19 @@ const StyledButton = styled.button`
   ${p => p.$sizeStyle}
   ${p => p.$variantStyle}
 
-  margin: 0;
-  border: none;
-  cursor: pointer;
-  font-family: "Noto Sans KR", Inter;
-  word-wrap: break-word
-  font-size: var(--button-font-size, 1rem);
+  width: var(--button-width, auto);
   padding: var(--button-padding, 12px 16px);
+  font-size: var(--button-font-size, 1rem);
+  font-weight: var(--button-font-weight, normal);
   border-radius: var(--button-radius, 10px);
-  background: var(--button-bg-color, #F38252);
+  background: var(--button-bg-color, #f38252);
   color: var(--button-color, #ffffff);
-
-  &:active,
-  &:hover,
-  &:focus {
-    background: var(--button-hover-bg-color, #C36035);
-  }
+  margin: var(--button-margin, 0);
 
   &:disabled {
     cursor: default;
     opacity: 0.5;
-    background: var(--button-bg-color, #F38252);
+    background: var(--button-bg-color, #f38252);
   }
 `;
 
