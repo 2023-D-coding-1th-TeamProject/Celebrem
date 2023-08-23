@@ -80,18 +80,16 @@ const LoginPage = () => {
   function Token() {
     console.log('토큰 작업 실행');
     axios
-      .post('http://http://144.24.82.156:8080/auth/login', {
-        phonenumber: userEmail,
+      .post('http://144.24.82.156:8080/auth/login', {
+        email: userEmail,
         password: userPW,
       })
       .then(function (response) {
         console.log(response);
         const token = response.data.accessToken;
-
         if (token) {
           //로컬 스토리지에 토큰 저장
-          localStorage.setItem('login-token', token);
-          console.log(token);
+          localStorage.setItem('token', token);
         }
         navigate('/');
       })
