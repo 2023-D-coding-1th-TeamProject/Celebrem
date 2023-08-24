@@ -67,15 +67,14 @@ const SignupButton = styled.button`
   margin-top: 1.6rem;
 `;
 
-
 export {
-    SignupContainer,
-    LogoImage,
-    FormContainer,
-    InputContainer,
-    InputField,
-    PasswordContainer,
-    PasswordInputField,
-    CheckButton,
-    SignupButton,
-  };
+  SignupContainer,
+  LogoImage,
+  FormContainer,
+  InputContainer,
+  InputField,
+  PasswordContainer,
+  PasswordInputField,
+  CheckButton,
+  SignupButton,
+};
