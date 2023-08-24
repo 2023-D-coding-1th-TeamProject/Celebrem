@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import LOGO from '../../../assets/images/header-logo-img.svg';
 import CHAT from '../../../assets/icons/icon-chat.svg';
 import NOTIFYUNREAD from '../../../assets/icons/icon-notify-unread.svg';
@@ -7,6 +8,7 @@ import NOTIFY from '../../../assets/icons/icon-notify.svg';
 import ADPROFILE from '../../../assets/images/profile-img-xxs.svg';
 import INFPROFILE from '../../../assets/images/profileInf-img-xxs.svg';
 import Search from '../Search/Search';
+import { loginState } from '../../../atoms/userAtom';
 
 import {
   HeaderStyle,
@@ -21,8 +23,10 @@ import {
 const Header = () => {
   const navigate = useNavigate();
 
+  const [loggedIn] = useRecoilState(loginState);
+
   // 더미 데이터
-  const isLoggedIn = true;
+
   const hasUnRead = false;
   const isInfluencer = false;
 
@@ -38,7 +42,7 @@ const Header = () => {
             <Search />
           </HeaderLeftStyle>
           <HeaderRightStyle>
-            {isLoggedIn ? (
+            {loggedIn ? (
               <MenuList>
                 <li>
                   <img src={CHAT} alt="채팅 페이지로 가기" onClick={() => navigate('/chat')} />
