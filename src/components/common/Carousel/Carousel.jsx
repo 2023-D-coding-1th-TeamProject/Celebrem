@@ -28,10 +28,10 @@ const Carousel = () => {
       </Wrapper>
       <Chapter>{`${currentIdx + 1} / ${images.length}`}</Chapter>
       <PrevButton onClick={handlePrev}>
-        <img src={prevBtn} />
+        <img src={prevBtn} alt="이전 슬라이드로 이동" />
       </PrevButton>
       <NextButton onClick={handleNext}>
-        <img src={nextBtn} />
+        <img src={nextBtn} alt="다음 슬라이드로 이동" />
       </NextButton>
     </CarouselStyle>
   );
