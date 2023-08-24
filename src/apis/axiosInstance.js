@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getCookie } from './cookie';
 
 const URL = process.env.REACT_APP_API_URL;
 
@@ -12,14 +13,14 @@ export const instance = axios.create({
 export const authInstance = axios.create({
   baseURL: URL,
   headers: {
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
+    Authorization: `Bearer ${getCookie('token')}`,
     'Content-Type': 'application/json',
   },
 });
 
 authInstance.interceptors.request.use(
   config => {
-    const token = localStorage.getItem('token');
+    const token = getCookie('token');
     if (!config.headers.Authorization) {
       config.headers = {
         ...config.headers,
