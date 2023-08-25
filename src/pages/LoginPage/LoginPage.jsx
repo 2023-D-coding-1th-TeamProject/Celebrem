@@ -7,6 +7,7 @@ import LOGO from '../../assets/images/login-signup-logo-img.svg';
 import Input from '../../components/common/Input/Input';
 import Button from '../../components/common/Button/Button';
 import { userLogin } from '../../apis/auth';
+import { setCookie } from '../../apis/cookie';
 import { loginState } from '../../atoms/userAtom';
 
 const LoginPage = () => {
@@ -30,7 +31,7 @@ const LoginPage = () => {
     console.log(loginData);
     const token = loginData.accessToken;
     if (token) {
-      localStorage.setItem('token', token);
+      setCookie('token', token);
       setLoggedIn(true);
     }
     navigate('/');
