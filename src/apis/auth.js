@@ -1,4 +1,5 @@
 import { instance } from './axiosInstance';
+import { authInstance } from './axiosInstance';
 
 /* 로그인 */
 export const userLogin = async (email, password) => {
@@ -40,6 +41,15 @@ export const emailVerification = async (email, code) => {
 export const emailVerificationSend = async email => {
   const response = await instance.post('/auth/email-verification/send', {
     email,
+  });
+  return response.data;
+};
+
+/* 리프레시 토큰으로 만료된 액세스 토큰 재발급 */
+export const postRefreshToken = async () => {
+  const refreshToken = localStorage.getItem('refreshToken');
+  const response = await authInstance.post(`/auth/reissue`, {
+    refreshToken: refreshToken,
   });
   return response.data;
 };
