@@ -7,13 +7,15 @@ import LOGO from '../../assets/images/login-signup-logo-img.svg';
 import Input from '../../components/common/Input/Input';
 import Button from '../../components/common/Button/Button';
 import { userLogin } from '../../apis/auth';
-import { setCookie } from '../../apis/cookie';
+// import { setCookie } from '../../apis/cookie';
 import { loginState } from '../../atoms/userAtom';
+import { roleState } from '../../atoms/userAtom';
 
 const LoginPage = () => {
   const [userEmail, setUserEmail] = useState('');
   const [userPW, setUserPW] = useState('');
   const setLoggedIn = useSetRecoilState(loginState);
+  const setUserRole = useSetRecoilState(roleState);
 
   const navigate = useNavigate();
 
@@ -29,10 +31,13 @@ const LoginPage = () => {
     e.preventDefault();
     const loginData = await userLogin(userEmail, userPW);
     console.log(loginData);
-    const token = loginData.accessToken;
-    if (token) {
-      setCookie('token', token);
+    const accessToken = loginData.accessToken;
+    const refreshToken = loginData.refreshToken;
+    if (accessToken) {
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
       setLoggedIn(true);
+      setUserRole(loginData.authority);
     }
     navigate('/');
   };
