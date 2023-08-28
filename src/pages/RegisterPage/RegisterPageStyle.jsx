@@ -26,6 +26,8 @@ const H1 = styled.h1`
   margin-bottom: 4.8rem;
 `;
 
+const Form = styled.form``;
+
 const Label = styled.span`
   font-size: ${({ theme }) => theme.fonts.base};
   display: block;
@@ -50,4 +52,4 @@ const Tag = styled.legend`
   margin-bottom: 2.4rem;
 `;
 
-export { MyInfo, H1, Label, Input, Fieldset, Tag };
+export { MyInfo, H1, Form, Label, Input, Fieldset, Tag };
