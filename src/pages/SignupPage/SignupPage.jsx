@@ -13,7 +13,7 @@ import {
   PasswordInputField,
   CheckButton,
   SignupButton,
-} from './SignupPageStyle'; 
+} from './SignupPageStyle';
 import LOGO from '../../assets/images/login-signup-logo-img.svg';
 
 function SignupPage() {
@@ -113,11 +113,10 @@ function SignupPage() {
     if (!emailch.test(useremail)) {
       alert('이메일형식이 아닙니다.');
     }else{
-      console.log('모달부른다?');
-      openModal();
 
     axios
       .post('http://144.24.82.156:8080/auth/email-verification/send', {
+
           email : useremail
       })
       .then(response => {
@@ -143,10 +142,10 @@ function SignupPage() {
   const onCheckNickname = e => {
     axios
       .post('http://144.24.82.156:8080/auth/signup/nickname-verification', {
-        nickname : nickname
+        nickname: nickname,
       })
       .then(response => {
-        console.log(response); 
+        console.log(response);
       })
       .catch(() => {
         alert('아직 서버 연결 ㄴㄴ');
@@ -171,8 +170,8 @@ function SignupPage() {
     //POST 회원가입//
     axios
       .post('http://144.24.82.156:8080/auth/signup', {
-        email : email,
-        password : pw,
+        email: email,
+        password: pw,
         nickname: nickname,
       })
       .then(response => {
@@ -186,12 +185,43 @@ function SignupPage() {
   };
 
   return (
-      <>
-        <SignupContainer>
-            <h1 className="a11y">Celebrem 로고</h1>
-            <Link to="/">
-              <LogoImage src={LOGO} alt="celebrem 로고" />
-            </Link>
+    <>
+      <SignupContainer>
+        <h1 className="a11y">Celebrem 로고</h1>
+        <Link to="/">
+          <LogoImage src={LOGO} alt="celebrem 로고" />
+        </Link>
+        <FormContainer>
+          <label htmlFor="email">이메일</label>
+          <InputContainer>
+            <InputField
+              id="email"
+              type="text"
+              placeholder="이메일을 입력해주세요"
+              name="name"
+              value={email}
+              onChange={onEmailChange}
+            />
+            <CheckButton onClick={onCheckEmail}>이메일 중복 확인</CheckButton>
+          </InputContainer>
+        </FormContainer>
+
+        <FormContainer>
+          <label htmlFor="nickname">닉네임</label>
+          <InputContainer>
+            <InputField
+              id="nickname"
+              type="text"
+              placeholder="영문 16자나 숫자 또는 한글 6가 이내"
+              name="nickname"
+              value={nickname}
+              onChange={onNicknameChange}
+            />
+            <CheckButton onClick={onCheckNickname}>닉네임 중복 확인</CheckButton>
+          </InputContainer>
+        </FormContainer>
+
+        <PasswordContainer>
           <FormContainer>
             <label htmlFor="email">이메일</label>
             <InputContainer>
@@ -210,50 +240,34 @@ function SignupPage() {
                 </Modal>
               }
             </InputContainer>
+
+            <label htmlFor="pw">비밀번호</label>
+            <PasswordInputField
+              id="pw"
+              type="password"
+              placeholder="비밀번호"
+              name="pw"
+              value={pw}
+              onChange={onPWChange}
+            />
+            <p>{pwMessage}</p>
+
           </FormContainer>
-  
+
           <FormContainer>
-            <label htmlFor="nickname">닉네임</label>
-            <InputContainer>
-              <InputField
-                id="nickname"
-                type="text"
-                placeholder="영문 16자나 숫자 또는 한글 6가 이내"
-                name="nickname"
-                value={nickname}
-                onChange={onNicknameChange}
-              />
-              <CheckButton onClick={onCheckNickname}>닉네임 중복 확인</CheckButton>
-            </InputContainer>
+            <label htmlFor="checkpw">비밀번호 확인</label>
+            <PasswordInputField
+              id="checkpw"
+              type="password"
+              placeholder="비밀번호 확인"
+              name="pw"
+              value={checkpw}
+              onChange={onCheckPWChange}
+            />
+            <p>{checkpwMessage}</p>
           </FormContainer>
   
-          <PasswordContainer>
-            <FormContainer>
-              <label htmlFor="pw">비밀번호</label>
-              <PasswordInputField
-                id="pw"
-                type="password"
-                placeholder="비밀번호"
-                name="pw"
-                value={pw}
-                onChange={onPWChange}
-              />
-              <p>{pwMessage}</p>
-            </FormContainer>
-  
-            <FormContainer>
-              <label htmlFor="checkpw">비밀번호 확인</label>
-              <PasswordInputField
-                id="checkpw"
-                type="password"
-                placeholder="비밀번호 확인"
-                name="pw"
-                value={checkpw}
-                onChange={onCheckPWChange}
-              />
-              <p>{checkpwMessage}</p>
-            </FormContainer>
-          </PasswordContainer>
+
 
           <SignupButton onClick={sendSignUpData}>회원 가입</SignupButton>
         </SignupContainer>
