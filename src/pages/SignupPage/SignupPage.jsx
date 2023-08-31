@@ -192,18 +192,23 @@ function SignupPage() {
           <LogoImage src={LOGO} alt="celebrem 로고" />
         </Link>
         <FormContainer>
-          <label htmlFor="email">이메일</label>
-          <InputContainer>
-            <InputField
-              id="email"
-              type="text"
-              placeholder="이메일을 입력해주세요"
-              name="name"
-              value={email}
-              onChange={onEmailChange}
-            />
-            <CheckButton onClick={onCheckEmail}>이메일 중복 확인</CheckButton>
-          </InputContainer>
+           <label htmlFor="email">이메일</label>
+            <InputContainer>
+              <InputField
+                id="email"
+                type="text"
+                placeholder="이메일을 입력해주세요"
+                name="name"
+                value={useremail}
+                onChange={onEmailChange}
+              />
+              <CheckButton onClick={onCheckEmail}>이메일 인증하기</CheckButton>
+              {isModalOpen && 
+                <Modal isOpen={isModalOpen} onClose={closeModal} setAuthCode={setAuthCode} emailCodeVerify={emailCodeVerify} >
+                  <p>인증코드를 입력해주세요</p>
+                </Modal>
+              }
+            </InputContainer>
         </FormContainer>
 
         <FormContainer>
@@ -223,23 +228,7 @@ function SignupPage() {
 
         <PasswordContainer>
           <FormContainer>
-            <label htmlFor="email">이메일</label>
-            <InputContainer>
-              <InputField
-                id="email"
-                type="text"
-                placeholder="이메일을 입력해주세요"
-                name="name"
-                value={useremail}
-                onChange={onEmailChange}
-              />
-              <CheckButton onClick={onCheckEmail}>이메일 인증하기</CheckButton>
-              {isModalOpen && 
-                <Modal isOpen={isModalOpen} onClose={closeModal} setAuthCode={setAuthCode} emailCodeVerify={emailCodeVerify} >
-                  <p>인증코드를 입력해주세요</p>
-                </Modal>
-              }
-            </InputContainer>
+           
 
             <label htmlFor="pw">비밀번호</label>
             <PasswordInputField
