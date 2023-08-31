@@ -266,7 +266,7 @@ function SignupPage() {
             />
             <p>{checkpwMessage}</p>
           </FormContainer>
-  
+   </PasswordContainer>
 
 
           <SignupButton onClick={sendSignUpData}>회원 가입</SignupButton>
