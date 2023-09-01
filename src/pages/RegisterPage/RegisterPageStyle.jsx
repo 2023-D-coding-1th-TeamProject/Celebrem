@@ -28,21 +28,6 @@ const H1 = styled.h1`
 
 const Form = styled.form``;
 
-const Label = styled.span`
-  font-size: ${({ theme }) => theme.fonts.base};
-  display: block;
-  margin-bottom: 2.4rem;
-`;
-
-const Input = styled.input`
-  width: 48.5rem;
-  padding: 1.6rem 1.5rem;
-  border-radius: 5px;
-  border: 1px solid ${({ theme }) => theme.colors.gray200};
-  font-size: ${({ theme }) => theme.fonts.base};
-  margin-bottom: 2.2rem;
-`;
-
 const Fieldset = styled.fieldset`
   margin-bottom: 3.2rem;
 `;
@@ -52,4 +37,4 @@ const Tag = styled.legend`
   margin-bottom: 2.4rem;
 `;
 
-export { MyInfo, H1, Form, Label, Input, Fieldset, Tag };
+export { MyInfo, H1, Form, Fieldset, Tag };
