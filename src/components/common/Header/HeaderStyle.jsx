@@ -49,11 +49,11 @@ const Profile = styled.img`
   ${props =>
     props.role === 'ROLE_USER'
       ? css`
-          border: 2px solid ${({ theme }) => theme.colors.gray200};
+          border: 3px solid ${({ theme }) => theme.colors.gray200};
         `
       : css`
           background: ${({ theme }) => theme.colors.influencer};
-          border: 2px solid transparent;
+          border: 3px solid transparent;
         `}
   border-radius: 60px;
 `;
