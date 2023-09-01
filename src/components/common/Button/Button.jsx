@@ -23,8 +23,12 @@ const SIZES = {
 
   //인스타그램 연결(soft), 등록하러 가기(soft), 찜하기, 채팅하기
   md: css`
-    --button-font-size: 1rem;
-    --button-padding: 12px 16px;
+    ${({ theme }) => theme.colors.main15};
+    --button-padding: 1rem 0;
+    --button-width: 20.8rem;
+    --button-font-weight: bold;
+    --button-font-size: 2rem;
+    --button-margin: 3.6rem 0;
   `,
 
   //로그인, 수정완료, 채팅하기
@@ -56,19 +60,25 @@ const VARIANTS = {
   `,
   //인스타그램 연결, 이메일 중복 확인, 닉네임 중복 확인
   soft: css`
-    --button-color: #f38252;
-    --button-bg-color: rgba(243, 130, 81, 0.15);
-    --button-hover-bg-color: rgba(243, 130, 82, 0.5);
+    ${({ theme }) => `
+      --button-color: ${theme.colors.main};
+      --button-bg-color: ${theme.colors.main15};
+    `}
   `,
 };
 
 // eslint-disable-next-line react/prop-types
-function Button({ disabled, size, variant, children }) {
+function Button({ disabled, size, variant, children, onClick }) {
   const sizeStyle = SIZES[size];
   const variantStyle = VARIANTS[variant];
 
   return (
-    <StyledButton disabled={disabled} $sizeStyle={sizeStyle} $variantStyle={variantStyle}>
+    <StyledButton
+      disabled={disabled}
+      $sizeStyle={sizeStyle}
+      $variantStyle={variantStyle}
+      onClick={onClick}
+    >
       {children}
     </StyledButton>
   );
