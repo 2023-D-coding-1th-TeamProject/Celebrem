@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import Header from '../../components/common/Header/Header';
 import Navbar from '../../components/common/Navbar/Navbar';
+import Input from '../../components/common/Input/Input';
 // import Button from '../../components/common/Button/Button';
 import ContentsLayout from '../../layout/ContentsLayout';
 import CheckTags from '../../components/common/Tags/CheckTags';
-import { MyInfo, H1, Form, Label, Input, Fieldset, Tag } from './RegisterPageStyle';
+import { MyInfo, H1, Form, Fieldset, Tag } from './RegisterPageStyle';
 import { roleState } from '../../atoms/userAtom';
 import { registerInfluencer } from '../../apis/user';
 
@@ -20,7 +21,7 @@ const RegisterPage = () => {
     setUserInstagramId(e.target.value);
   };
 
-  console.log(selectedTags);
+  console.log(userInstagramId);
 
   const handleRegistration = async e => {
     e.preventDefault();
@@ -39,8 +40,11 @@ const RegisterPage = () => {
         <MyInfo>
           <H1>인플루언서 설정</H1>
           <Form onSubmit={handleRegistration}>
-            <Label>인스타그램 아이디</Label>
-            <Input placeholder="이메일을 입력해주세요" onChange={handleInstaId}></Input>
+            <Input
+              label="인스타그램 아이디"
+              placeholder="이메일을 입력해주세요"
+              onChange={handleInstaId}
+            />
             <Fieldset>
               <Tag>태그 선택하기</Tag>
               <CheckTags selectedTags={selectedTags} onTagToggle={setSelectedTags} />
