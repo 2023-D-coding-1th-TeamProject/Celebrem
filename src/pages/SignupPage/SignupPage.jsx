@@ -151,7 +151,7 @@ function SignupPage() {
     } else if (nickname === '') {
       alert('닉네임을 작성해주세요');
       return;
-    } else if (pw === '' && pw !=== checkpw) {
+    } else if (pw === '' && pw !== checkpw) {
       console.error('Passwords do not match.');
       alert('⚠비밀번호 불일치');
     }
