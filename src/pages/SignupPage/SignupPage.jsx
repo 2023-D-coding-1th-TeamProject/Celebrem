@@ -39,7 +39,6 @@ function SignupPage() {
     setNickname(e.target.value);
   };
 
-
   //모달창 관련 변수&함수
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -55,28 +54,25 @@ function SignupPage() {
   const emailCodeVerify = e => {
     axios
       .post('http://144.24.82.156:8080/auth/email-verification/verify', {
-          email : useremail,
-          code : authcode
+        email: useremail,
+        code: authcode,
       })
       .then(response => {
         console.log(response.data);
-        
-        if(response.status===400){
+
+        if (response.status === 400) {
           alert('존재하지 않는 이메일입니다.');
-        }else if(response.status===401){
+        } else if (response.status === 401) {
           alert('인증번호가 올바르지 않습니다.');
-        }else{
+        } else {
           closeModal();
           setIsVerify(true);
         }
       })
       .catch(() => {
-          alert('서버 연결 실패');
+        alert('서버 연결 실패');
       });
-
-      
-  }
-
+  };
 
   // 비밀번호 유효성 검사 함수
   const onPWChange = e => {
@@ -108,34 +104,27 @@ function SignupPage() {
 
   // 이메일 중복 확인 부분 [이메일 중복 확인 버튼]
   const onCheckEmail = e => {
-
     const emailch = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // 이메일 형태 조건식ㄴ
     if (!emailch.test(useremail)) {
       alert('이메일형식이 아닙니다.');
-    }else{
+    } else {
+      axios
+        .post('http://144.24.82.156:8080/auth/email-verification/send', {
+          email: useremail,
+        })
+        .then(response => {
+          console.log(response.data);
 
-    axios
-      .post('http://144.24.82.156:8080/auth/email-verification/send', {
-
-          email : useremail
-      })
-      .then(response => {
-        console.log(response.data);
-        
-        if(response.status===3011){
-          alert('중복된 이메일 입니다.');
-        }else{
-          openModal();
-        }
-      })
-      .catch(() => {
+          if (response.status === 3011) {
+            alert('중복된 이메일 입니다.');
+          } else {
+            openModal();
+          }
+        })
+        .catch(() => {
           alert('서버 연결 실패');
-      });
-
+        });
     }
-
-    
-      
   };
 
   // 닉네임 중복 확인 부분 [닉네임 중복 확인 버튼]
@@ -162,7 +151,7 @@ function SignupPage() {
     } else if (nickname === '') {
       alert('닉네임을 작성해주세요');
       return;
-    } else if (pw='' && pw !== checkpw) {
+    } else if (pw === '' && pw !== checkpw) {
       console.error('Passwords do not match.');
       alert('⚠비밀번호 불일치');
     }
@@ -170,7 +159,7 @@ function SignupPage() {
     //POST 회원가입//
     axios
       .post('http://144.24.82.156:8080/auth/signup', {
-        email: email,
+        email: useremail,
         password: pw,
         nickname: nickname,
       })
@@ -191,26 +180,45 @@ function SignupPage() {
         <Link to="/">
           <LogoImage src={LOGO} alt="celebrem 로고" />
         </Link>
-        <FormContainer>
-           <label htmlFor="email">이메일</label>
-            <InputContainer>
-              <InputField
-                id="email"
-                type="text"
-                placeholder="이메일을 입력해주세요"
-                name="name"
-                value={useremail}
-                onChange={onEmailChange}
-              />
-              <CheckButton onClick={onCheckEmail}>이메일 인증하기</CheckButton>
-              {isModalOpen && 
-                <Modal isOpen={isModalOpen} onClose={closeModal} setAuthCode={setAuthCode} emailCodeVerify={emailCodeVerify} >
-                  <p>인증코드를 입력해주세요</p>
-                </Modal>
-              }
-            </InputContainer>
-        </FormContainer>
+        {/* <FormContainer>
+          <label htmlFor="email">이메일</label>
+          <InputContainer>
+            <InputField
+              id="email"
+              type="text"
+              placeholder="이메일을 입력해주세요"
+              name="name"
+              value={useremail}
+              onChange={onEmailChange}
+            />
+            <CheckButton onClick={onCheckEmail}>이메일 중복 확인</CheckButton>
+          </InputContainer>
+        </FormContainer> */}
 
+        <FormContainer>
+          <label htmlFor="email">이메일</label>
+          <InputContainer>
+            <InputField
+              id="email"
+              type="text"
+              placeholder="이메일을 입력해주세요"
+              name="name"
+              value={useremail}
+              onChange={onEmailChange}
+            />
+            <CheckButton onClick={onCheckEmail}>이메일 인증하기</CheckButton>
+            {isModalOpen && (
+              <Modal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                setAuthCode={setAuthCode}
+                emailCodeVerify={emailCodeVerify}
+              >
+                <p>인증코드를 입력해주세요</p>
+              </Modal>
+            )}
+          </InputContainer>
+        </FormContainer>
         <FormContainer>
           <label htmlFor="nickname">닉네임</label>
           <InputContainer>
@@ -228,8 +236,6 @@ function SignupPage() {
 
         <PasswordContainer>
           <FormContainer>
-           
-
             <label htmlFor="pw">비밀번호</label>
             <PasswordInputField
               id="pw"
@@ -240,7 +246,6 @@ function SignupPage() {
               onChange={onPWChange}
             />
             <p>{pwMessage}</p>
-
           </FormContainer>
 
           <FormContainer>
@@ -255,12 +260,11 @@ function SignupPage() {
             />
             <p>{checkpwMessage}</p>
           </FormContainer>
-   </PasswordContainer>
+        </PasswordContainer>
 
-
-          <SignupButton onClick={sendSignUpData}>회원 가입</SignupButton>
-        </SignupContainer>
-      </>
+        <SignupButton onClick={sendSignUpData}>회원 가입</SignupButton>
+      </SignupContainer>
+    </>
   );
 }
 

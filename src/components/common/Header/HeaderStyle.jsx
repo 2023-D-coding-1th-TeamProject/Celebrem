@@ -27,8 +27,8 @@ const HeaderRightStyle = styled.div`
   img {
     display: block;
     margin: 0 auto 6px;
-    width: 3em;
-    height: 3rem;
+    width: 3.2rem;
+    height: 3.2rem;
   }
 `;
 
@@ -43,6 +43,19 @@ const MenuList = styled.ul`
       margin-right: 0;
     }
   }
+`;
+
+const Profile = styled.img`
+  ${props =>
+    props.role === 'ROLE_USER'
+      ? css`
+          border: 3px solid ${({ theme }) => theme.colors.gray200};
+        `
+      : css`
+          background: ${({ theme }) => theme.colors.influencer};
+          border: 3px solid transparent;
+        `}
+  border-radius: 60px;
 `;
 
 const AuthLink = css`
@@ -64,4 +77,13 @@ const Login = styled.button`
   color: ${({ theme }) => theme.colors.gray400};
 `;
 
-export { HeaderStyle, Wrapper, HeaderLeftStyle, HeaderRightStyle, MenuList, Signup, Login };
+export {
+  HeaderStyle,
+  Wrapper,
+  HeaderLeftStyle,
+  HeaderRightStyle,
+  MenuList,
+  Profile,
+  Signup,
+  Login,
+};

@@ -68,20 +68,19 @@ const OkButton = styled.button`
   border-radius: 5px;
   background-color: #f38252;
   margin-left: 5px;
-  
+
   &:hover {
     background-color: #ac5f3e;
   }
 `;
 
-
 export {
-    ModalOverlay,
-    ModalContent,
-    CloseButton,
-    InputContainer,
-    CodeText,
-    InputField,
-    NoButton,
-    OkButton
+  ModalOverlay,
+  ModalContent,
+  CloseButton,
+  InputContainer,
+  CodeText,
+  InputField,
+  NoButton,
+  OkButton,
 };

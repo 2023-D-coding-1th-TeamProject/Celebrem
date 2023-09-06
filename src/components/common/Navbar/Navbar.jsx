@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PROFILE from '../../../assets/images/profile-img-m.svg';
-
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { roleState } from '../../../atoms/userAtom';
+import { accountState } from '../../../atoms/userAtom';
 import {
   NavbarWrapper,
   UserInfo,
@@ -12,19 +14,41 @@ import {
   DeleteAccount,
 } from './NavbarStyle';
 
-const Navbar = () => {
+const Navbar = ({ profile }) => {
+  const profileImageUrl = profile?.profileImageUrl || PROFILE;
+  const [userAccount, setUserAccount] = useRecoilState(accountState);
+  const userRole = useRecoilValue(roleState);
+  const role = userRole === 'ROLE_USER' ? 'ROLE_USER' : 'ROLE_INFLUENCER';
+
+  useEffect(() => {
+    if (profile) {
+      setUserAccount(userAccount => ({
+        ...userAccount,
+        image: profileImageUrl,
+        nickname: profile.nickname,
+      }));
+    }
+  }, [profile, profileImageUrl, setUserAccount]);
+
   return (
     <NavbarWrapper>
       <UserInfo>
-        <Profile src={PROFILE} />
-        <Account>디코딩딩</Account>
+        <Profile src={userAccount.image} role={role} alt="프로필 이미지" />
+        <Account>{userAccount.nickname}</Account>
       </UserInfo>
       <NavList>
         <li>
-          <NavLink to="edit">회원 정보 수정</NavLink>
+          <NavLink to="edit" isActive={(match, location) => location.pathname.includes('edit')}>
+            회원 정보 수정
+          </NavLink>
         </li>
         <li>
-          <NavLink to="register">인플루언서 등록</NavLink>
+          <NavLink
+            to="register"
+            isActive={(match, location) => location.pathname.includes('register')}
+          >
+            인플루언서 등록
+          </NavLink>
         </li>
         <li>
           <NavLink to="register">찜</NavLink>
