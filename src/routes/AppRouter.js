@@ -10,7 +10,7 @@ import AccountEditPage from '../pages/AccountPage/AccountEdit/AccountEditPage';
 import RegisterPage from '../pages/RegisterPage/RegisterPage';
 import ChatListPage from '../pages/ChatPage/ChatListPage/ChatListPage';
 import ChatRoomPage from '../pages/ChatPage/ChatRoomPage/ChatRoomPage';
-
+import ProfilePage from '../pages/ProfilePage/ProfilePage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 
 const AppRouter = () => {
@@ -29,6 +29,7 @@ const AppRouter = () => {
         </Route>
         <Route path="/chat" element={<ChatListPage />} />
         <Route path="/chat/:accountname" element={<ChatRoomPage />} />
+        <Route path="/profile/:accountname" element={<ProfilePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
