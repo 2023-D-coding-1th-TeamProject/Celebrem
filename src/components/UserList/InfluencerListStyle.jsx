@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import COMMENTHEART from '../../assets/icons/icon-comment-hearted.svg';
 
-const User = styled.section`
+const UserLink = styled(Link)`
   max-width: 100rem;
   margin: 0 auto;
   padding: 1rem 2rem;
@@ -50,4 +51,4 @@ const Button = styled.button`
   }
 `;
 
-export { User, Image, Info, NickName, DetailInfo, Button };
+export { UserLink, Image, Info, NickName, DetailInfo, Button };

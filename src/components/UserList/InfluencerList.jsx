@@ -3,13 +3,13 @@ import USER from '../../assets/images/profile-img-s.svg';
 import HEART from '../../assets/icons/icon-hearted.svg';
 import ProfileTags from '../common/Tags/ProfileTags';
 import PropTypes from 'prop-types';
-import { User, Image, Info, NickName, DetailInfo, Button } from './InfluencerListStyle';
+import { UserLink, Image, Info, NickName, DetailInfo, Button } from './InfluencerListStyle';
 
 const UserList = ({ userList }) => {
   return (
     <>
       {userList.map(user => (
-        <User key={user.id}>
+        <UserLink to={`/profile/${user.userName}`} key={user.id}>
           <Image>
             <img src={USER} alt="유저" />
           </Image>
@@ -22,9 +22,9 @@ const UserList = ({ userList }) => {
           </Info>
           <ProfileTags categories={user.category} />
           <Button>
-            <img src={HEART} alt="찜하기" />
+            <img src={HEART} alt=" 아이콘" />
           </Button>
-        </User>
+        </UserLink>
       ))}
     </>
   );
@@ -41,6 +41,7 @@ UserList.propTypes = {
       category: PropTypes.arrayOf(PropTypes.string).isRequired,
     }),
   ).isRequired,
+  onUserClick: PropTypes.func.isRequired,
 };
 
 export default UserList;
