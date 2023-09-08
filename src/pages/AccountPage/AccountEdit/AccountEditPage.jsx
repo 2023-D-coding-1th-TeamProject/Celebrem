@@ -31,7 +31,6 @@ const AccountEditPage = () => {
   useEffect(() => {
     const handleProfile = async () => {
       const profileData = await getMyProfileForUpdate();
-      console.log(profileData);
       setUserProfile(profileData);
       setAccount(prevAccount => ({
         ...prevAccount,
@@ -40,7 +39,7 @@ const AccountEditPage = () => {
       setIsLoading(false);
     };
     handleProfile();
-  }, []);
+  }, [setAccount, userImage]);
 
   console.log(selectedTags);
 
