@@ -1,33 +1,128 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import Header from '../../../components/common/Header/Header';
+import Input from '../../../components/common/Input/Input';
 import BASICPROFILEIMAGE from '../../../assets/images/profile-img-l.svg';
 import ADDIMAGE from '../../../assets/icons/icon-upload.svg';
 import CheckTags from '../../../components/common/Tags/CheckTags';
+import { roleState } from '../../../atoms/userAtom';
+import { getMyProfileForUpdate, updateMyProfile, changeMyProfileImage } from '../../../apis/user';
+import Spinner from '../../../components/common/Spinner/Spinner';
+import { accountState } from '../../../atoms/userAtom';
 
 const AccountEditPage = () => {
-  // 더미데이터 (인플루언서인지 확인여부)
-  const isInfluencer = true;
+  const navigate = useNavigate();
+  const imgRef = useRef();
+  const [isLoading, setIsLoading] = useState(true);
+  const [userDescription, setUserDescription] = useState('');
+  const [userInstaId, setUserInstaId] = useState('');
+  const [previewImage, setPreviewImage] = useState('');
+  const [userProfile, setUserProfile] = useState(null);
+  const [selectedTags, setSelectedTags] = useState([]);
 
+  const userRole = useRecoilValue(roleState);
+  const [account, setAccount] = useRecoilState(accountState);
+
+  const userImage = account.image;
+  const formData = new FormData();
+
+  useEffect(() => {
+    const handleProfile = async () => {
+      const profileData = await getMyProfileForUpdate();
+      console.log(profileData);
+      setUserProfile(profileData);
+      setAccount(prevAccount => ({
+        ...prevAccount,
+        userImage: userImage,
+      }));
+      setIsLoading(false);
+    };
+    handleProfile();
+  }, []);
+
+  console.log(selectedTags);
+
+  const handleImage = async e => {
+    if (e && e.target && e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      formData.append('image', file);
+      const imgURL = URL.createObjectURL(file);
+      setPreviewImage(imgURL);
+      await changeMyProfileImage(formData);
+      setAccount(prevAccount => ({
+        ...prevAccount,
+        userImage: previewImage,
+      }));
+    }
+  };
+
+  const handleDescription = e => {
+    setUserDescription(e.target.value);
+  };
+
+  const handleInstaId = e => {
+    setUserInstaId(e.target.value);
+  };
+
+  const handleUpdateProfile = async e => {
+    e.preventDefault();
+    if (userDescription || userInstaId || selectedTags.length > 0) {
+      await updateMyProfile(userDescription, userInstaId, selectedTags);
+      alert('프로필 수정이 완료되었습니다');
+      navigate('/mypage');
+    } else if (previewImage) {
+      handleImage();
+      alert('프로필 수정이 완료되었습니다');
+      navigate('/mypage');
+    }
+  };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
   return (
     <>
       <AccountEditPageWrapper>
         <Header />
-        <Form>
+        <Form onSubmit={handleUpdateProfile}>
           <ImageLabel htmlFor="profile-image">
-            <Image src={BASICPROFILEIMAGE} alt="프로필 이미지" />
-            <Input type="file" accept="image/png, image/jpg, image/jpeg" id="profile-image" />
+            <Image
+              src={
+                userProfile
+                  ? userProfile.profileImageUrl
+                  : previewImage
+                  ? previewImage
+                  : BASICPROFILEIMAGE
+              }
+              alt="프로필 이미지"
+            />
+            <ImageInput
+              type="file"
+              accept="image/png, image/jpg, image/jpeg"
+              id="profile-image"
+              onChange={handleImage}
+              ref={imgRef}
+            />
           </ImageLabel>
           <Label>이메일</Label>
-          <p>celebrem@test.com</p>
+          <Email>{userProfile?.email}</Email>
           <Label>소개</Label>
-          <Description placeholder="나에 대한 소개글을 작성해주세요!"></Description>
-          {isInfluencer && (
+          <Description placeholder="나에 대한 소개글을 작성해주세요!" onChange={handleDescription}>
+            {userProfile?.description}
+          </Description>
+          {userRole === 'ROLE_INFLUENCER' && (
             <>
-              <Label>인스타그램 아이디</Label>
-              <TextInput value="인스타그램"></TextInput>
+              <Input
+                label="인스타그램 아이디"
+                value={userProfile?.instagramId}
+                onChange={handleInstaId}
+              >
+                {userProfile?.instagramId}
+              </Input>
               <Label>태그 설정하기</Label>
-              <CheckTags />
+              <CheckTags selectedTags={selectedTags} onTagToggle={setSelectedTags} />
             </>
           )}
           <button>수정 완료</button>
@@ -93,7 +188,7 @@ const Image = styled.img`
   border-radius: 50%;
 `;
 
-const Input = styled.input`
+const ImageInput = styled.input`
   width: 0.1rem;
   height: 0.1rem;
   position: absolute;
@@ -106,6 +201,12 @@ const Label = styled.label`
   color: ${({ theme }) => theme.colors.gray400};
 `;
 
+const Email = styled.p`
+  margin-bottom: 4.2rem;
+  font-size: ${({ theme }) => theme.fonts.base};
+  color: ${({ theme }) => theme.colors.gray400};
+`;
+
 const Description = styled.textarea`
   width: 47.8rem;
   height: 13rem;
@@ -115,13 +216,4 @@ const Description = styled.textarea`
   border: 1px solid ${({ theme }) => theme.colors.gray200};
   margin-bottom: 3.6rem;
   color: ${({ theme }) => theme.colors.gray400};
-`;
-
-const TextInput = styled.input`
-  width: 48.5rem;
-  padding: 1.6rem 1.5rem;
-  border: 1px solid rgb(190, 190, 190);
-  border-radius: 5px;
-  margin-bottom: 2.4rem;
-  font-size: 16px;
 `;
