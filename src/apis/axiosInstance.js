@@ -15,6 +15,7 @@ export const imgInstance = axios.create({
   baseURL: URL,
   headers: {
     'Content-Type': 'multipart/form-data',
+    Authorization: `Bearer ${getCookie('accessToken')}`,
   },
 });
 
