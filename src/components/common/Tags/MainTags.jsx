@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { TAGS } from '../../../constants/CategoryTag';
+import { getTags } from '../../../apis/tag';
 
 const MainTags = ({ selectedTag, onSelectTag }) => {
-  const tags = ['전체', ...TAGS];
+  const [mainTag, setMainTag] = useState([]);
+
+  useEffect(() => {
+    const handleTag = async () => {
+      const tagData = await getTags();
+      const tagArray = Object.values(tagData);
+      console.log(tagArray);
+      const tags = [...new Set(tagArray.flat())];
+      setMainTag(['전체'].concat(tags));
+    };
+    handleTag();
+  }, []);
 
   const handleTagClick = tag => {
     onSelectTag(tag);
@@ -11,8 +22,12 @@ const MainTags = ({ selectedTag, onSelectTag }) => {
 
   return (
     <CategoryTags>
-      {tags.map((tag, index) => (
-        <CategoryTag key={index} onClick={() => handleTagClick(tag)} isActive={selectedTag === tag}>
+      {mainTag.map((tag, index) => (
+        <CategoryTag
+          key={index}
+          onClick={() => handleTagClick(tag)}
+          isActive={selectedTag.includes(tag)}
+        >
           {tag}
         </CategoryTag>
       ))}
@@ -23,16 +38,17 @@ const MainTags = ({ selectedTag, onSelectTag }) => {
 export default MainTags;
 
 const CategoryTags = styled.nav`
-  width: 100%;
+  width: 60%;
+  margin: 2rem auto;
   display: flex;
   justify-content: center;
-  gap: 2.4rem;
-  padding: 2rem 0;
+  align-items: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
 `;
 
 const CategoryTag = styled.button`
-  width: 7.4rem;
-  padding: 6px 0;
+  padding: 8px 20px;
   background: ${({ theme, isActive }) => (isActive ? theme.colors.main : theme.colors.gray100)};
   color: ${({ theme, isActive }) => (isActive ? theme.colors.white : theme.colors.gray300)};
   font-size: 14px;
