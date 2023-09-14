@@ -4,6 +4,7 @@ import Carousel from '../../components/common/Carousel/Carousel';
 import MainTags from '../../components/common/Tags/MainTags';
 import InfluencerList from '../../components/UserList/InfluencerList';
 import ProfilePage from '../ProfilePage/ProfilePage';
+import { getFeed } from '../../apis/profile';
 
 const HomePage = () => {
   const [userData, setUserData] = useState([]);
@@ -11,14 +12,15 @@ const HomePage = () => {
   const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData([selectedTag]);
+  }, [selectedTag]);
+  console.log(selectedTag);
 
   const fetchData = async () => {
     try {
-      const response = await fetch('/api/users');
-      const data = await response.json();
-      setUserData(data.data);
+      const feedData = await getFeed(selectedTag);
+      setUserData(feedData);
+      console.log(feedData);
     } catch (error) {
       console.error(error);
     }
@@ -28,17 +30,16 @@ const HomePage = () => {
     setSelectedUser(user);
   };
 
-  const filteredUserData =
-    selectedTag === '전체'
-      ? userData
-      : userData.filter(user => user.category.includes(selectedTag));
+  const handleTagSelect = tag => {
+    setSelectedTag([tag]);
+  };
 
   return (
     <>
       <Header />
       <Carousel />
-      <MainTags selectedTag={selectedTag} onSelectTag={setSelectedTag} />
-      <InfluencerList userList={filteredUserData} onUserClick={handleUserClick} />
+      <MainTags selectedTag={selectedTag} onSelectTag={handleTagSelect} />
+      <InfluencerList userList={userData} onUserClick={handleUserClick} />
       {selectedUser ? <ProfilePage user={selectedUser} /> : null} {/* 전달 */}
     </>
   );
