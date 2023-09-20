@@ -56,7 +56,7 @@ const CheckButton = styled.button`
   color: #f38252;
 `;
 
-const SignupButton = styled.button`
+const UnabledButton = styled.button`
   width: 62.6rem;
   padding: 1.9rem 0;
   border-radius: 10px;
@@ -67,15 +67,26 @@ const SignupButton = styled.button`
   margin-top: 1.6rem;
 `;
 
+const AbledButton = styled.button`
+  width: 62.6rem;
+  padding: 1.9rem 0;
+  border-radius: 10px;
+  background-color: #f38252;
+  color: #fcfcfc;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-top: 1.6rem;
+`;
 
 export {
-    SignupContainer,
-    LogoImage,
-    FormContainer,
-    InputContainer,
-    InputField,
-    PasswordContainer,
-    PasswordInputField,
-    CheckButton,
-    SignupButton,
-  };
+  SignupContainer,
+  LogoImage,
+  FormContainer,
+  InputContainer,
+  InputField,
+  PasswordContainer,
+  PasswordInputField,
+  CheckButton,
+  UnabledButton,
+  AbledButton,
+};
