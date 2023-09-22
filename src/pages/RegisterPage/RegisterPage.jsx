@@ -4,7 +4,7 @@ import { useSetRecoilState } from 'recoil';
 import Header from '../../components/common/Header/Header';
 import Navbar from '../../components/common/Navbar/Navbar';
 import Input from '../../components/common/Input/Input';
-// import Button from '../../components/common/Button/Button';
+import Button from '../../components/common/Button/Button';
 import ContentsLayout from '../../layout/ContentsLayout';
 import CheckTags from '../../components/common/Tags/CheckTags';
 import { MyInfo, H1, Form, Fieldset, Tag } from './RegisterPageStyle';
@@ -49,7 +49,9 @@ const RegisterPage = () => {
               <Tag>태그 선택하기</Tag>
               <CheckTags selectedTags={selectedTags} onTagToggle={setSelectedTags} />
             </Fieldset>
-            <button type="submit">등록 완료</button>
+            <Button size="xlg" variant="yes" type="submit">
+              등록 완료
+            </Button>
           </Form>
         </MyInfo>
       </ContentsLayout>

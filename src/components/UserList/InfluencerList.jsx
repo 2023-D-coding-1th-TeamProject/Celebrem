@@ -10,7 +10,7 @@ const UserList = ({ userList }) => {
   return (
     <>
       {userList.map(user => (
-        <UserLink to={`/profile/${user.nickname}`} key={user.id}>
+        <UserLink to={`/profile/${user.influencerId}`} key={user.influencerId}>
           <Image>
             <img src={user.imageUrl ? user.imageUrl : USER} alt="유저" />
           </Image>

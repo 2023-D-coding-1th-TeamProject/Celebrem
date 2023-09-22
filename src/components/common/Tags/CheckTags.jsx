@@ -63,7 +63,6 @@ const CheckboxTag = styled.div`
   flex-wrap: wrap;
   border-radius: 5px;
   gap: 2.5rem;
-  margin-bottom: 3.2rem;
 `;
 
 const Label = styled.label`

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const NavbarWrapper = styled.nav`
@@ -14,11 +14,7 @@ const NavList = styled.ul`
   color: ${({ theme }) => theme.colors.gray400};
 `;
 
-const NavLink = styled(Link)`
-  &:active {
-    color: ${({ theme }) => theme.colors.main};
-  }
-`;
+const NavLink = styled(Link)``;
 
 const Logout = styled.button`
   color: ${({ theme }) => theme.colors.gray400};
@@ -39,6 +35,16 @@ const Profile = styled.img`
   width: 10.2rem;
   height: 10.2rem;
   margin: 0 auto;
+  ${props =>
+    props.role === 'ROLE_USER'
+      ? css`
+          border: 4px solid ${({ theme }) => theme.colors.gray200};
+        `
+      : css`
+          background: ${({ theme }) => theme.colors.influencer};
+          border: 4px solid transparent;
+        `}
+  border-radius: 50%;
 `;
 
 const Account = styled.span`
