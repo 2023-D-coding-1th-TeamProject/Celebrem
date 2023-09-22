@@ -19,17 +19,17 @@ ProfileTags.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-const CategoryTags = styled.nav`
+const CategoryTags = styled.div`
   display: flex;
   gap: 1rem;
 `;
 
 const CategoryTag = styled.span`
   display: inline-block;
-  padding: 6px 10px;
+  padding: 8px 12px;
   font-size: 14px;
   border-radius: 20px;
   font-weight: bold;
-  border: 1px solid ${({ theme }) => theme.colors.main};
+  border: 2px solid ${({ theme }) => theme.colors.main};
   color: ${({ theme }) => theme.colors.main};
 `;

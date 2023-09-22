@@ -1,21 +1,6 @@
 import styled from 'styled-components';
 
-const MyInfo = styled.main`
-  p {
-    margin-bottom: 3.2rem;
-    font-size: ${({ theme }) => theme.fonts.base};
-    color: ${({ theme }) => theme.colors.gray400};
-  }
-  button {
-    font-size: ${({ theme }) => theme.fonts.lg};
-    background-color: ${({ theme }) => theme.colors.main15};
-    color: ${({ theme }) => theme.colors.main};
-    width: 20.8rem;
-    padding: 1rem 0;
-    border-radius: 1rem;
-    font-weight: bold;
-  }
-`;
+const MyInfo = styled.main``;
 
 const H1 = styled.h1`
   font-size: ${({ theme }) => theme.fonts.xlg};
@@ -30,6 +15,33 @@ const Label = styled.span`
   margin-bottom: 2.4rem;
 `;
 
-const Email = styled.p``;
+const Description = styled.p`
+  width: 47.8rem;
+  height: 13rem;
+  border-radius: 10px;
+  padding: 1.3rem;
+  font-size: ${({ theme }) => theme.fonts.base};
+  border: 1px solid ${({ theme }) => theme.colors.gray200};
+  margin-bottom: 3.6rem;
+  color: ${({ theme }) => theme.colors.gray400};
+`;
 
-export { MyInfo, H1, Label, Email };
+const Email = styled.p`
+  white-space: initial;
+  overflow: initial;
+  text-overflow: initial;
+  margin-bottom: 4.2rem;
+  font-size: ${({ theme }) => theme.fonts.base};
+  color: ${({ theme }) => theme.colors.gray400};
+`;
+
+const Empty = styled.p`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4.2rem;
+  font-size: ${({ theme }) => theme.fonts.base};
+  color: ${({ theme }) => theme.colors.gray300};
+`;
+
+export { MyInfo, H1, Label, Description, Email, Empty };

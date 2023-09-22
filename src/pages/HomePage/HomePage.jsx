@@ -3,10 +3,12 @@ import Header from '../../components/common/Header/Header';
 import Carousel from '../../components/common/Carousel/Carousel';
 import MainTags from '../../components/common/Tags/MainTags';
 import InfluencerList from '../../components/UserList/InfluencerList';
+import ProfilePage from '../ProfilePage/ProfilePage';
 
 const HomePage = () => {
   const [userData, setUserData] = useState([]);
   const [selectedTag, setSelectedTag] = useState('전체');
+  const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -22,7 +24,10 @@ const HomePage = () => {
     }
   };
 
-  // 인플루언서 태그 필터링
+  const handleUserClick = user => {
+    setSelectedUser(user);
+  };
+
   const filteredUserData =
     selectedTag === '전체'
       ? userData
@@ -33,7 +38,8 @@ const HomePage = () => {
       <Header />
       <Carousel />
       <MainTags selectedTag={selectedTag} onSelectTag={setSelectedTag} />
-      <InfluencerList userList={filteredUserData} />
+      <InfluencerList userList={filteredUserData} onUserClick={handleUserClick} />
+      {selectedUser ? <ProfilePage user={selectedUser} /> : null} {/* 전달 */}
     </>
   );
 };

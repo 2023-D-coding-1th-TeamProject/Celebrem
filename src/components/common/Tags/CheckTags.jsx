@@ -1,36 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import UNCHECKED from '../../../assets/icons/icon-checkbox-unchecked.svg';
 import CHECKED from '../../../assets/icons/icon-checkbox-checked.svg';
 
-import { TAGS } from '../../../constants/CategoryTag';
+import { getTags } from '../../../apis/tag';
 
-export default function CheckTags() {
-  const [selectedTags, setSelectedTags] = useState([]);
+export default function CheckTags({ selectedTags, onTagToggle }) {
+  // 전체 태그
+  const [tags, setTags] = useState([]);
+
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const response = await getTags();
+        setTags(response.tagNames);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchTags();
+  }, []);
 
   const handleTagToggle = tag => {
-    if (selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter(selectedTag => selectedTag !== tag));
+    if (selectedTags && selectedTags.includes(tag)) {
+      onTagToggle(selectedTags.filter(selectedTag => selectedTag !== tag));
     } else {
       if (selectedTags.length < 3) {
-        setSelectedTags([...selectedTags, tag]);
+        onTagToggle([...selectedTags, tag]);
       } else {
         alert('최대 3개만 설정할 수 있습니다');
       }
     }
   };
 
+  console.log(selectedTags);
+
   return (
     <CheckboxTag>
-      {TAGS.map((tag, index) => (
+      {tags.map((tag, index) => (
         <Label key={index}>
           <Checkbox
             type="checkbox"
-            checked={selectedTags.includes(tag)}
+            checked={selectedTags && selectedTags.includes(tag)}
             onChange={() => handleTagToggle(tag)}
           />
           <IconWrapper>
-            <Icon src={selectedTags.includes(tag) ? CHECKED : UNCHECKED} />
+            <Icon src={selectedTags && selectedTags.includes(tag) ? CHECKED : UNCHECKED} />
           </IconWrapper>
           {tag}
         </Label>

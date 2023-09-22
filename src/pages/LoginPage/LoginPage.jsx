@@ -1,22 +1,21 @@
 import React from 'react';
 import { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import { useNavigate, Link } from 'react-router-dom';
-import {
-    LoginContainer,
-    LogoImage,
-    FormContainer,
-    CloseIcon,
-    InputField,
-    FormLabel,
-    LoginButton,
-    TextParagraph,
-  } from './LoginPageStyle';
-import axios from 'axios';
+import { LoginStyle, LoginForm, Signup } from './LoginPageStyle';
 import LOGO from '../../assets/images/login-signup-logo-img.svg';
+import Input from '../../components/common/Input/Input';
+import Button from '../../components/common/Button/Button';
+import { userLogin } from '../../apis/auth';
+import { setCookie } from '../../apis/cookie';
+import { loginState } from '../../atoms/userAtom';
+import { roleState } from '../../atoms/userAtom';
 
 const LoginPage = () => {
   const [userEmail, setUserEmail] = useState('');
   const [userPW, setUserPW] = useState('');
+  const setLoggedIn = useSetRecoilState(loginState);
+  const setUserRole = useSetRecoilState(roleState);
 
   const navigate = useNavigate();
 
@@ -28,77 +27,49 @@ const LoginPage = () => {
     setUserPW(e.target.value);
   };
 
+  const handleLogin = async e => {
+    e.preventDefault();
+    const loginData = await userLogin(userEmail, userPW);
+    if (loginData) {
+      const accessToken = loginData.accessToken;
+      const refreshToken = loginData.refreshToken;
+      setCookie('accessToken', accessToken);
+      setCookie('refreshToken', refreshToken);
+      setLoggedIn(true);
+      setUserRole(loginData.authority);
+      navigate('/');
+    }
+  };
+
   return (
-    <>
-      <LoginContainer>
-        <h1 className="a11y">Celebrem 로고</h1>
-        <Link to="/">
-          <LogoImage src={LOGO} alt="celebrem 로고" />
-        </Link>
-        <FormContainer>
-          <FormLabel htmlFor="inputEmail">이메일</FormLabel>
-          <div className={CloseIcon}>
-            <InputField
-              id="inputEmail"
-              type="text"
-              placeholder="이메일을 입력하세요"
-              name="inputEmail"
-              value={userEmail}
-              onChange={handleUserEmail}
-            />
-          </div>
-        </FormContainer>
-
-        <FormContainer>
-          <FormLabel htmlFor="inputPW">비밀번호</FormLabel>
-          <InputField
-            id="inputPW"
-            type="password"
-            placeholder="비밀번호를 입력하세요"
-            name="password"
-            value={userPW}
-            onChange={handleUserPW}
-          />
-        </FormContainer>
-        <LoginButton
-          id="loginbtn"
-          onClick={() => {
-            Token();
-          }}
-        >
+    <LoginStyle>
+      <h1 className="a11y">Celebrem 로고</h1>
+      <Link to="/">
+        <img src={LOGO} alt="celebrem 로고" />
+      </Link>
+      <LoginForm onSubmit={handleLogin}>
+        <Input
+          id="inputEmail"
+          label="이메일"
+          type="email"
+          placeHolder="이메일을 입력하세요"
+          onChange={handleUserEmail}
+        />
+        <Input
+          id="inputPW"
+          label="비밀번호"
+          type="password"
+          placeHolder="비밀번호를 입력하세요"
+          onChange={handleUserPW}
+        />
+        <Button size="lg" variant="yes" type="submit">
           로그인
-        </LoginButton>
-        <br />
-        <TextParagraph primary>비밀번호 찾기</TextParagraph>
-        <TextParagraph bold underline onClick={() => navigate('../signup')}>
-          회원이 아니신가요? 회원가입
-        </TextParagraph>
-      </LoginContainer>
-    </>
+        </Button>
+      </LoginForm>
+      <p>비밀번호 찾기</p>
+      <Signup onClick={() => navigate('../signup')}>회원이 아니신가요? 회원가입</Signup>
+    </LoginStyle>
   );
-
-  function Token() {
-    console.log('토큰 작업 실행');
-    axios
-      .post('http://http://144.24.82.156:8080/auth/login', {
-        phonenumber: userEmail,
-        password: userPW,
-      })
-      .then(function (response) {
-        console.log(response);
-        const token = response.data.accessToken;
-
-        if (token) {
-          //로컬 스토리지에 토큰 저장
-          localStorage.setItem('login-token', token);
-          console.log(token);
-        }
-        navigate('/');
-      })
-      .catch(function (error) {
-        alert('로그인 실패😣');
-      });
-  }
 };
 
 export default LoginPage;

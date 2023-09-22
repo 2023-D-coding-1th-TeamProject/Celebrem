@@ -1,12 +1,16 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import LOGO from '../../../assets/images/header-logo-img.svg';
 import CHAT from '../../../assets/icons/icon-chat.svg';
 import NOTIFYUNREAD from '../../../assets/icons/icon-notify-unread.svg';
 import NOTIFY from '../../../assets/icons/icon-notify.svg';
-import ADPROFILE from '../../../assets/images/profile-img-xxs.svg';
-import INFPROFILE from '../../../assets/images/profileInf-img-xxs.svg';
+import PROFILE from '../../../assets/images/profile-img-xxs.svg';
+// import PROFILE from '../../../assets/images/profile-img-xxs.svg';
 import Search from '../Search/Search';
+import { loginState } from '../../../atoms/userAtom';
+import { accountState } from '../../../atoms/userAtom';
+import { roleState } from '../../../atoms/userAtom';
 
 import {
   HeaderStyle,
@@ -14,6 +18,7 @@ import {
   HeaderLeftStyle,
   HeaderRightStyle,
   MenuList,
+  Profile,
   Signup,
   Login,
 } from './HeaderStyle';
@@ -21,10 +26,14 @@ import {
 const Header = () => {
   const navigate = useNavigate();
 
+  const isLoggedIn = useRecoilValue(loginState);
+  const userRole = useRecoilValue(roleState);
+  const role = userRole === 'ROLE_USER' ? 'ROLE_USER' : 'ROLE_INFLUENCER';
+  const userProfile = useRecoilValue(accountState).image;
+
   // 더미 데이터
-  const isLoggedIn = true;
+
   const hasUnRead = false;
-  const isInfluencer = false;
 
   return (
     <>
@@ -49,8 +58,10 @@ const Header = () => {
                   <span>알림</span>
                 </li>
                 <li>
-                  <img
-                    src={isInfluencer ? INFPROFILE : ADPROFILE}
+                  <Profile
+                    className="profile"
+                    src={userProfile ? userProfile : PROFILE}
+                    role={role}
                     alt="마이페이지로 가기"
                     onClick={() => navigate('/mypage')}
                   />

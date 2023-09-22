@@ -1,4 +1,4 @@
-/* module.exports = {
+module.exports = {
   env: {
     browser: true,
     es6: true,
@@ -7,7 +7,6 @@
   extends: [
     'react-app',
     'eslint:recommended',
-    'plugin:react/recommended',
     'plugin:prettier/recommended',
     'plugin:react-hooks/recommended',
   ],
@@ -17,12 +16,5 @@
   },
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
-    'prettier/prettier' : [
-      'error',
-      {
-        'endOfLine': 'auto',
-      },
-    ],
   },
 };
- */

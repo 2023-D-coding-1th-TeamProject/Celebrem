@@ -23,14 +23,22 @@ const SIZES = {
 
   //인스타그램 연결(soft), 등록하러 가기(soft), 찜하기, 채팅하기
   md: css`
-    --button-font-size: 1rem;
-    --button-padding: 12px 16px;
+    ${({ theme }) => theme.colors.main15};
+    --button-padding: 1rem 0;
+    --button-width: 20.8rem;
+    --button-font-weight: bold;
+    --button-font-size: 2rem;
+    --button-margin: 3.6rem 0;
   `,
 
   //로그인, 수정완료, 채팅하기
   lg: css`
-    --button-font-size: 1.25rem;
-    --button-padding: 16px 20px;
+    ${({ theme }) => theme.colors.main};
+    --button-padding: 1.7rem 0;
+    --button-width: 48.5rem;
+    --button-font-weight: bold;
+    --button-font-size: 18px;
+    --button-margin: 1.6rem auto 2.5rem;
   `,
   //등록완료, 회원가입(disabled)
   lg2: css`
@@ -52,19 +60,25 @@ const VARIANTS = {
   `,
   //인스타그램 연결, 이메일 중복 확인, 닉네임 중복 확인
   soft: css`
-    --button-color: #f38252;
-    --button-bg-color: rgba(243, 130, 81, 0.15);
-    --button-hover-bg-color: rgba(243, 130, 82, 0.5);
+    ${({ theme }) => `
+      --button-color: ${theme.colors.main};
+      --button-bg-color: ${theme.colors.main15};
+    `}
   `,
 };
 
 // eslint-disable-next-line react/prop-types
-function Button({ disabled, size, variant, children }) {
+function Button({ disabled, size, variant, children, onClick }) {
   const sizeStyle = SIZES[size];
   const variantStyle = VARIANTS[variant];
 
   return (
-    <StyledButton disabled={disabled} $sizeStyle={sizeStyle} $variantStyle={variantStyle}>
+    <StyledButton
+      disabled={disabled}
+      $sizeStyle={sizeStyle}
+      $variantStyle={variantStyle}
+      onClick={onClick}
+    >
       {children}
     </StyledButton>
   );
@@ -74,27 +88,19 @@ const StyledButton = styled.button`
   ${p => p.$sizeStyle}
   ${p => p.$variantStyle}
 
-  margin: 0;
-  border: none;
-  cursor: pointer;
-  font-family: "Noto Sans KR", Inter;
-  word-wrap: break-word
-  font-size: var(--button-font-size, 1rem);
+  width: var(--button-width, auto);
   padding: var(--button-padding, 12px 16px);
+  font-size: var(--button-font-size, 1rem);
+  font-weight: var(--button-font-weight, normal);
   border-radius: var(--button-radius, 10px);
-  background: var(--button-bg-color, #F38252);
+  background: var(--button-bg-color, #f38252);
   color: var(--button-color, #ffffff);
-
-  &:active,
-  &:hover,
-  &:focus {
-    background: var(--button-hover-bg-color, #C36035);
-  }
+  margin: var(--button-margin, 0);
 
   &:disabled {
     cursor: default;
     opacity: 0.5;
-    background: var(--button-bg-color, #F38252);
+    background: var(--button-bg-color, #f38252);
   }
 `;
 
