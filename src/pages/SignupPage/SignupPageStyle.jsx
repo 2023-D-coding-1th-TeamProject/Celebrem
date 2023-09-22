@@ -56,11 +56,22 @@ const CheckButton = styled.button`
   color: #f38252;
 `;
 
-const SignupButton = styled.button`
+const UnabledButton = styled.button`
   width: 62.6rem;
   padding: 1.9rem 0;
   border-radius: 10px;
   background-color: #ffbca0;
+  color: #fcfcfc;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-top: 1.6rem;
+`;
+
+const AbledButton = styled.button`
+  width: 62.6rem;
+  padding: 1.9rem 0;
+  border-radius: 10px;
+  background-color: #f38252;
   color: #fcfcfc;
   font-size: 1.8rem;
   font-weight: bold;
@@ -76,5 +87,7 @@ export {
   PasswordContainer,
   PasswordInputField,
   CheckButton,
-  SignupButton,
+  UnabledButton,
+  AbledButton,
 };
+
