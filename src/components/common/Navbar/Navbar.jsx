@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
-// import { useMatch } from 'react-router';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import PROFILE from '../../../assets/images/profile-img-m.svg';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { roleState } from '../../../atoms/userAtom';
+import Modal from '../Modal/Modal';
+import { secession } from '../../../apis/user';
+import { removeAllCookie } from '../../../apis/cookie';
+import { useRecoilState } from 'recoil';
 import { accountState } from '../../../atoms/userAtom';
 import {
   NavbarWrapper,
   UserInfo,
-  Profile,
   Account,
   NavList,
   NavLink,
@@ -17,17 +17,52 @@ import {
 } from './NavbarStyle';
 
 const Navbar = ({ profile }) => {
-  const location = useLocation(); // 현재 경로 정보를 가져옴
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // const base = useMatch();
+  const [isLogoutModal, setIsLogoutModal] = useState(false);
+  const [isDeleteModal, setIsDeleteModal] = useState(false);
+
+  const fetchLogout = () => {
+    removeAllCookie();
+    localStorage.clear();
+    closeLogoutModal();
+    navigate('/');
+  };
+
+  const fetchSecession = async () => {
+    const secessionData = await secession();
+    if (secessionData === 204) {
+      removeAllCookie();
+      localStorage.clear();
+      closeDeleteAccountModal();
+      navigate('/');
+    }
+  };
+
+  const openLogoutModal = () => {
+    setIsLogoutModal(true);
+  };
+
+  const closeLogoutModal = () => {
+    setIsLogoutModal(false);
+  };
+
+  const openDeleteAccountModal = () => {
+    setIsDeleteModal(true);
+  };
+
+  const closeDeleteAccountModal = () => {
+    setIsDeleteModal(false);
+  };
+
   const activeStyle = {
     color: '#F38252',
     fontWeight: 700,
   };
+
   const profileImageUrl = profile?.profileImageUrl || PROFILE;
   const [userAccount, setUserAccount] = useRecoilState(accountState);
-  const userRole = useRecoilValue(roleState);
-  const role = userRole === 'ROLE_USER' ? 'ROLE_USER' : 'ROLE_INFLUENCER';
 
   useEffect(() => {
     if (profile) {
@@ -42,7 +77,6 @@ const Navbar = ({ profile }) => {
   return (
     <NavbarWrapper>
       <UserInfo>
-        <Profile src={userAccount.image} role={role} alt="프로필 이미지" />
         <Account>{userAccount.nickname}</Account>
       </UserInfo>
       <NavList>
@@ -79,8 +113,24 @@ const Navbar = ({ profile }) => {
           </NavLink>
         </li>
       </NavList>
-      <Logout>로그아웃</Logout>
-      <DeleteAccount>회원 탈퇴</DeleteAccount>
+      <Logout onClick={() => setIsLogoutModal(true)}>로그아웃</Logout>
+      {isLogoutModal && (
+        <Modal
+          title="Celebrem을 로그아웃하시겠습니까?"
+          isOpen={openLogoutModal}
+          onClose={closeLogoutModal}
+          handleAxios={fetchLogout}
+        />
+      )}
+      <DeleteAccount onClick={() => setIsDeleteModal(true)}>회원 탈퇴</DeleteAccount>
+      {isDeleteModal && (
+        <Modal
+          title="Celebrem을 탈퇴하시겠습니까?"
+          isOpen={openDeleteAccountModal}
+          onClose={closeDeleteAccountModal}
+          handleAxios={fetchSecession}
+        />
+      )}
     </NavbarWrapper>
   );
 };
