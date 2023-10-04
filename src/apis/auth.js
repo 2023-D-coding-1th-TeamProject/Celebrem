@@ -60,3 +60,13 @@ export const postRefreshToken = async (accessToken, refreshToken) => {
   });
   return response.data;
 };
+
+/* 로그아웃 */
+export const logout = async () => {
+  try {
+    const response = await authInstance.patch(`/auth/logout`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
