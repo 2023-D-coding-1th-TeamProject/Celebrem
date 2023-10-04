@@ -28,16 +28,16 @@ function SignupPage() {
   const [pwMessage, setPwMessage] = useState('');
   const [checkpwMessage, setCheckPwMessage] = useState('');
 
-
   // 이메일 인증
   const [isVerify, setIsVerify] = useState(false);
 
   // 닉네임 중복 확인
   const [nicknameOK, setNicknameOK] = useState(false);
 
-  // 이메일 인증, 닉네임 중복, 패스워드 일치 세 조건 
+  // 이메일 인증, 닉네임 중복, 패스워드 일치 세 조건
   const [allConditionMet, setAllConditionMet] = useState(false);
 
+  const [showInput, setShowInput] = useState(false);
 
   const onEmailChange = e => {
     setUserEmail(e.target.value);
@@ -47,21 +47,20 @@ function SignupPage() {
     setNickname(e.target.value);
   };
 
-  
   // 모달창 관련 변수 & 함수
   const [isModalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
     setModalOpen(true);
+    setShowInput(true);
   };
 
   const closeModal = () => {
     setModalOpen(false);
   };
 
-  
   // 이메일 코드 확인
-  const emailCodeVerify = e => {
+  const emailCodeVerify = () => {
     axios
       .post('http://144.24.82.156:8080/auth/email-verification/verify', {
         email: useremail,
@@ -196,7 +195,7 @@ function SignupPage() {
         <Link to="/">
           <LogoImage src={LOGO} alt="celebrem 로고" />
         </Link>
-  
+
         <FormContainer>
           <label htmlFor="email">이메일</label>
           <InputContainer>
@@ -211,12 +210,14 @@ function SignupPage() {
             <CheckButton onClick={onCheckEmail}>이메일 인증하기</CheckButton>
             {isModalOpen && (
               <Modal
+                title="인증코드를 입력해주세요"
                 isOpen={isModalOpen}
                 onClose={closeModal}
                 setAuthCode={setAuthCode}
-                emailCodeVerify={emailCodeVerify}
+                handleAxios={emailCodeVerify}
+                showInput={showInput}
               >
-                <p>인증코드를 입력해주세요</p>
+                {/* <p>인증코드를 입력해주세요</p> */}
               </Modal>
             )}
           </InputContainer>
