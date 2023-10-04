@@ -57,3 +57,13 @@ export const changeMyProfileImage = async formData => {
     console.error(error);
   }
 };
+
+/* 회원 탈퇴 */
+export const secession = async () => {
+  try {
+    const response = await authInstance.delete(`/my-profile/secession`);
+    return response.status;
+  } catch (error) {
+    console.error(error);
+  }
+};

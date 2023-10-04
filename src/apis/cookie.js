@@ -12,6 +12,12 @@ export const setCookie = (name, value, option) => {
   return cookies.set(name, value, options);
 };
 
+export const loginDataCookie = loginData => {
+  Object.entries(loginData).forEach(([key, value]) => {
+    setCookie(key, value);
+  });
+};
+
 /*
 * 옵션 *
 1. path - 쿠키 값을 저장하는 서버 경로
@@ -24,6 +30,20 @@ export const getCookie = name => {
   return cookies.get(name);
 };
 
+export const getAllCookie = () => {
+  return cookies.getAll();
+};
+
 export const removeCookie = (name, option) => {
-  return cookies.remove(name, { ...option });
+  const cookieValue = getCookie(name);
+  if (cookieValue !== undefined) {
+    return cookies.remove(name, { ...option });
+  }
+};
+
+export const removeAllCookie = () => {
+  const allCookieNames = cookies.getAll();
+  Object.keys(allCookieNames).forEach(cookieName => {
+    cookies.remove(cookieName);
+  });
 };

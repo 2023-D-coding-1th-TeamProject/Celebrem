@@ -7,11 +7,12 @@ import {
   InputContainer,
   CodeText,
   InputField,
+  ButtonContainer,
   NoButton,
   OkButton,
 } from './ModalStyle';
 
-const Modal = ({ isOpen, onClose, setAuthCode, emailCodeVerify }) => {
+const Modal = ({ title, isOpen, onClose, setAuthCode, handleAxios, showInput }) => {
   if (!isOpen) return null;
 
   const handleAuthCode = e => {
@@ -24,12 +25,19 @@ const Modal = ({ isOpen, onClose, setAuthCode, emailCodeVerify }) => {
         <ModalContent>
           <CloseButton onClick={onClose}>X</CloseButton>
           <InputContainer>
-            <CodeText>인증코드를 입력해주세요</CodeText>
-            <InputField id="inputPW" type="text" placeholder="인증코드" onChange={handleAuthCode} />
-            <div>
+            <CodeText>{title}</CodeText>
+            {showInput && (
+              <InputField
+                id="inputPW"
+                type="text"
+                placeholder="인증코드"
+                onChange={handleAuthCode}
+              />
+            )}
+            <ButtonContainer>
               <NoButton onClick={onClose}>취소</NoButton>
-              <OkButton onClick={emailCodeVerify}>확인</OkButton>
-            </div>
+              <OkButton onClick={handleAxios}>확인</OkButton>
+            </ButtonContainer>
           </InputContainer>
         </ModalContent>
       </ModalOverlay>
