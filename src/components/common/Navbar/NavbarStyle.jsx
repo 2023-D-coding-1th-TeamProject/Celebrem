@@ -2,8 +2,11 @@ import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const NavbarWrapper = styled.nav`
-  li,
-  button {
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  border-radius: 10px;
+  padding: 3rem;
+  height: 45rem;
+  li {
     font-size: ${({ theme }) => theme.fonts.md};
     display: block;
     margin-bottom: 3.2rem;
@@ -18,10 +21,14 @@ const NavLink = styled(Link)``;
 
 const Logout = styled.button`
   color: ${({ theme }) => theme.colors.gray400};
+  display: block;
+  margin-bottom: 3.2rem;
+  font-size: ${({ theme }) => theme.fonts.md};
 `;
 
 const DeleteAccount = styled.button`
   color: ${({ theme }) => theme.colors.gray200};
+  font-size: ${({ theme }) => theme.fonts.md};
 `;
 
 const UserInfo = styled.div`
