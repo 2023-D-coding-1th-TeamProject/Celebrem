@@ -3,43 +3,44 @@ import Header from '../../components/common/Header/Header';
 import Carousel from '../../components/common/Carousel/Carousel';
 import MainTags from '../../components/common/Tags/MainTags';
 import InfluencerList from '../../components/UserList/InfluencerList';
-import ProfilePage from '../ProfilePage/ProfilePage';
+import Sorting from '../../components/common/Sorting/Sorting';
+import { getFeed } from '../../apis/profile';
 
 const HomePage = () => {
   const [userData, setUserData] = useState([]);
   const [selectedTag, setSelectedTag] = useState('전체');
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [orderBy, setOrderBy] = useState('RANDOM');
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData([selectedTag]);
+  }, [selectedTag, orderBy]);
+  console.log(selectedTag);
 
   const fetchData = async () => {
     try {
-      const response = await fetch('/api/users');
-      const data = await response.json();
-      setUserData(data.data);
+      const feedData = await getFeed(selectedTag, orderBy);
+      setUserData(feedData);
+      console.log(feedData);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleUserClick = user => {
-    setSelectedUser(user);
+  const handleTagSelect = tag => {
+    setSelectedTag([tag]);
   };
 
-  const filteredUserData =
-    selectedTag === '전체'
-      ? userData
-      : userData.filter(user => user.category.includes(selectedTag));
+  const handleOrderBy = order => {
+    setOrderBy(order);
+  };
 
   return (
     <>
       <Header />
       <Carousel />
-      <MainTags selectedTag={selectedTag} onSelectTag={setSelectedTag} />
-      <InfluencerList userList={filteredUserData} onUserClick={handleUserClick} />
-      {selectedUser ? <ProfilePage user={selectedUser} /> : null} {/* 전달 */}
+      <MainTags selectedTag={selectedTag} onSelectTag={handleTagSelect} />
+      <Sorting onSelectOrder={handleOrderBy} orderType={orderBy} />
+      <InfluencerList userList={userData} />
     </>
   );
 };

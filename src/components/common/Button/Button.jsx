@@ -9,11 +9,13 @@ const SIZES = {
     --button-padding: 8px 12px;
     --button-radius: 20px;
   `,
+
   //회원가입, 아니요(no), 예
   sm2: css`
     --button-font-size: 0.8rem;
     --button-padding: 8px 12px;
   `,
+
   //이메일중복확인, 닉네임중복확인(soft)
   sm3: css`
     --button-font-size: 0.8rem;
@@ -21,13 +23,13 @@ const SIZES = {
     --button-radius: 5px;
   `,
 
-  //인스타그램 연결(soft), 등록하러 가기(soft), 찜하기, 채팅하기
+  //인스타그램 연결(soft), 등록하러 가기(soft), 수정하기
   md: css`
     ${({ theme }) => theme.colors.main15};
-    --button-padding: 1rem 0;
-    --button-width: 20.8rem;
+    --button-padding: 1.3rem 0;
+    --button-width: 21.6rem;
     --button-font-weight: bold;
-    --button-font-size: 2rem;
+    --button-font-size: 18px;
     --button-margin: 3.6rem 0;
   `,
 
@@ -40,11 +42,17 @@ const SIZES = {
     --button-font-size: 18px;
     --button-margin: 1.6rem auto 2.5rem;
   `,
+
   //등록완료, 회원가입(disabled)
-  lg2: css`
+  xlg: css`
+    ${({ theme }) => theme.colors.main};
+    --button-width: 48.5rem;
     --button-font-size: 1.25rem;
     --button-padding: 16px 20px;
     --button-radius: 5px;
+    --button-font-size: 18px;
+    --button-font-weight: bold;
+    --button-margin: 1.6rem auto 3rem;
   `,
 };
 
@@ -67,7 +75,6 @@ const VARIANTS = {
   `,
 };
 
-// eslint-disable-next-line react/prop-types
 function Button({ disabled, size, variant, children, onClick }) {
   const sizeStyle = SIZES[size];
   const variantStyle = VARIANTS[variant];

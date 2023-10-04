@@ -29,7 +29,7 @@ const AppRouter = () => {
         </Route>
         <Route path="/chat" element={<ChatListPage />} />
         <Route path="/chat/:accountname" element={<ChatRoomPage />} />
-        <Route path="/profile/:accountname" element={<ProfilePage />} />
+        <Route path="/profile/:influencerId" element={<ProfilePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

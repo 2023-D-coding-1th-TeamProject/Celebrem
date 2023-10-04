@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import Header from '../../../components/common/Header/Header';
+import Button from '../../../components/common/Button/Button';
 import Input from '../../../components/common/Input/Input';
 import BASICPROFILEIMAGE from '../../../assets/images/profile-img-l.svg';
 import ADDIMAGE from '../../../assets/icons/icon-upload.svg';
@@ -124,7 +125,9 @@ const AccountEditPage = () => {
               <CheckTags selectedTags={selectedTags} onTagToggle={setSelectedTags} />
             </>
           )}
-          <button>수정 완료</button>
+          <Button size="xlg" variant="yes">
+            수정 완료
+          </Button>
         </Form>
       </AccountEditPageWrapper>
     </>
@@ -146,16 +149,6 @@ const AccountEditPageWrapper = styled.div`
 const Form = styled.form`
   font-size: ${({ theme }) => theme.fonts.base};
   margin: 5.5rem auto;
-  button {
-    display: block;
-    width: 48.5rem;
-    padding: 1.8rem 0;
-    background: ${({ theme }) => theme.colors.main};
-    border-radius: 10px;
-    color: ${({ theme }) => theme.colors.white};
-    font-size: ${({ theme }) => theme.fonts.md};
-    font-weight: bold;
-  }
 `;
 
 const ImageLabel = styled.label`

@@ -1,6 +1,7 @@
 import React from 'react';
 import USER from '../../assets/images/profile-img-s.svg';
 import HEART from '../../assets/icons/icon-hearted.svg';
+import UNHEART from '../../assets/icons/icon-unhearted.svg';
 import ProfileTags from '../common/Tags/ProfileTags';
 import PropTypes from 'prop-types';
 import { UserLink, Image, Info, NickName, DetailInfo, Button } from './InfluencerListStyle';
@@ -9,20 +10,20 @@ const UserList = ({ userList }) => {
   return (
     <>
       {userList.map(user => (
-        <UserLink to={`/profile/${user.userName}`} key={user.id}>
+        <UserLink to={`/profile/${user.influencerId}`} key={user.influencerId}>
           <Image>
-            <img src={USER} alt="유저" />
+            <img src={user.imageUrl ? user.imageUrl : USER} alt="유저" />
           </Image>
           <Info>
-            <NickName>{user.userName}</NickName>
+            <NickName>{user.nickname}</NickName>
             <DetailInfo>
-              <span>{user.instagramId}</span>
+              <span>{user.influencerId}</span>
               <span className="like-count">{user.likeCount}</span>
             </DetailInfo>
           </Info>
-          <ProfileTags categories={user.category} />
+          <ProfileTags categories={user.tagNames} />
           <Button>
-            <img src={HEART} alt=" 아이콘" />
+            <img src={user.like ? HEART : UNHEART} alt=" 아이콘" />
           </Button>
         </UserLink>
       ))}

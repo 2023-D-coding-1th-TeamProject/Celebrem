@@ -6,17 +6,6 @@ const MyInfo = styled.main`
     font-size: ${({ theme }) => theme.fonts.base};
     color: ${({ theme }) => theme.colors.gray400};
   }
-  button {
-    display: block;
-    font-size: ${({ theme }) => theme.fonts.lg};
-    background-color: ${({ theme }) => theme.colors.main};
-    color: ${({ theme }) => theme.colors.white};
-    width: 48.5rem;
-    padding: 1.7rem 0;
-    border-radius: 10px;
-    font-size: 18px;
-    font-weight: bold;
-  }
 `;
 
 const H1 = styled.h1`
@@ -29,7 +18,7 @@ const H1 = styled.h1`
 const Form = styled.form``;
 
 const Fieldset = styled.fieldset`
-  margin-bottom: 3.2rem;
+  margin-bottom: 1rem;
 `;
 
 const Tag = styled.legend`
