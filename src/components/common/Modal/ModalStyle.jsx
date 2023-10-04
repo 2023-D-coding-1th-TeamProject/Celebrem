@@ -15,8 +15,8 @@ const ModalOverlay = styled.div`
 
 const ModalContent = styled.div`
   background-color: white;
-  width: 400px;
-  height: 200px;
+  width: 35rem;
+  padding: 3.5rem 0;
   border-radius: 5px;
   position: relative;
   border: 1px solid black;
@@ -42,33 +42,39 @@ const InputContainer = styled.div`
 `;
 
 const CodeText = styled.p`
-  font-weight: 300;
   font-size: 17px;
+  margin-bottom: 3rem;
 `;
 
 const InputField = styled.input`
   width: 50%;
-  padding: 0.8rem 0.8rem;
-  margin: 1.6rem 0;
+  padding: 1rem;
+  margin-bottom: 3rem;
   border: 1px solid rgb(192, 192, 192);
   border-radius: 5px;
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 2.5rem;
+`;
+
 const NoButton = styled.button`
   width: 100px;
-  height: 2.7em;
+  padding: 1rem;
   border: 1px solid rgb(201, 201, 201);
   border-radius: 5px;
-  margin-right: 2px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.black};
 `;
 
 const OkButton = styled.button`
   width: 100px;
-  height: 2.7em;
+  padding: 1rem;
   border-radius: 5px;
+  font-weight: 600;
   background-color: #f38252;
-  margin-left: 5px;
-
+  color: ${({ theme }) => theme.colors.white};
   &:hover {
     background-color: #ac5f3e;
   }
@@ -81,6 +87,7 @@ export {
   InputContainer,
   CodeText,
   InputField,
+  ButtonContainer,
   NoButton,
   OkButton,
 };
