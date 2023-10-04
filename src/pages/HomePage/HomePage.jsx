@@ -5,29 +5,41 @@ import MainTags from '../../components/common/Tags/MainTags';
 import InfluencerList from '../../components/UserList/InfluencerList';
 import Sorting from '../../components/common/Sorting/Sorting';
 import { getFeed } from '../../apis/profile';
+import { getAllFeed } from '../../apis/profile';
 
 const HomePage = () => {
   const [userData, setUserData] = useState([]);
   const [selectedTag, setSelectedTag] = useState('전체');
   const [orderBy, setOrderBy] = useState('RANDOM');
 
-  useEffect(() => {
-    fetchData([selectedTag]);
-  }, [selectedTag, orderBy]);
-  console.log(selectedTag);
-
   const fetchData = async () => {
     try {
       const feedData = await getFeed(selectedTag, orderBy);
       setUserData(feedData);
-      console.log(feedData);
     } catch (error) {
       console.error(error);
     }
   };
 
+  const fetchFeed = async () => {
+    try {
+      const alllFeedData = await getAllFeed(orderBy);
+      setUserData(alllFeedData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedTag === '전체') {
+      fetchFeed();
+    } else {
+      fetchData();
+    }
+  }, [selectedTag, orderBy]);
+
   const handleTagSelect = tag => {
-    setSelectedTag([tag]);
+    setSelectedTag(tag);
   };
 
   const handleOrderBy = order => {
@@ -40,7 +52,7 @@ const HomePage = () => {
       <Carousel />
       <MainTags selectedTag={selectedTag} onSelectTag={handleTagSelect} />
       <Sorting onSelectOrder={handleOrderBy} orderType={orderBy} />
-      <InfluencerList userList={userData} />
+      {userData && <InfluencerList userList={userData} />}
     </>
   );
 };

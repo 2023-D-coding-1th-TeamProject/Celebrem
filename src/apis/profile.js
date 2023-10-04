@@ -1,11 +1,20 @@
 import { authInstance } from './axiosInstance';
 /* 메인 페이지 피드 */
 const page = 1;
+
+// 모든 인플루언서 피드
+export const getAllFeed = async orderBy => {
+  try {
+    const response = await authInstance.get(`/?page=${page}&orderBy=${orderBy}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const getFeed = async (tagName, orderBy) => {
   try {
-    const response = await authInstance.get(
-      `/feed?page=${page}&tagName=${tagName}&orderBy=${orderBy}`,
-    );
+    const response = await authInstance.get(`/?page=${page}&tagName=${tagName}&orderBy=${orderBy}`);
     return response.data;
   } catch (error) {
     console.error(error);
