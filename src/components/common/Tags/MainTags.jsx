@@ -5,14 +5,15 @@ import { getTags } from '../../../apis/tag';
 const MainTags = ({ selectedTag, onSelectTag }) => {
   const [mainTag, setMainTag] = useState([]);
 
+  const handleTag = async () => {
+    const tagData = await getTags();
+    const tagArray = Object.values(tagData);
+    console.log(tagArray);
+    const tags = [...new Set(tagArray.flat())];
+    setMainTag(['전체'].concat(tags));
+  };
+
   useEffect(() => {
-    const handleTag = async () => {
-      const tagData = await getTags();
-      const tagArray = Object.values(tagData);
-      console.log(tagArray);
-      const tags = [...new Set(tagArray.flat())];
-      setMainTag(['전체'].concat(tags));
-    };
     handleTag();
   }, []);
 
