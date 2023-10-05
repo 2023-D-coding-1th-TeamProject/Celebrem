@@ -6,19 +6,20 @@ import CHECKED from '../../../assets/icons/icon-checkbox-checked.svg';
 import { getTags } from '../../../apis/tag';
 
 export default function CheckTags({ selectedTags, onTagToggle }) {
-  // 전체 태그
   const [tags, setTags] = useState([]);
 
-  useEffect(() => {
-    const fetchTags = async () => {
-      try {
-        const response = await getTags();
-        setTags(response.tagNames);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const fetchTags = async () => {
+    try {
+      const tagData = await getTags();
+      const tagArray = Object.values(tagData);
+      const tags = [...new Set(tagArray.flat())];
+      setTags(tags);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
+  useEffect(() => {
     fetchTags();
   }, []);
 
