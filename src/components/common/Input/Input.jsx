@@ -1,9 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Input = ({ id, label, type, placeHolder, value, onChange, onBlur, errorMsg, isValid }) => {
+const Input = ({
+  id,
+  label,
+  type,
+  placeHolder,
+  value,
+  onChange,
+  onBlur,
+  errorMsg,
+  isValid,
+  readOnly,
+}) => {
   return (
-    <Wrapper>
+    <>
       <Label htmlFor={id}>{label}</Label>
       <InputField
         id={id}
@@ -14,15 +25,12 @@ const Input = ({ id, label, type, placeHolder, value, onChange, onBlur, errorMsg
         onBlur={onBlur}
         isValid={isValid}
         autoComplete="off"
+        readOnly={readOnly}
       />
       {errorMsg && !isValid && <ErrorMsg>{errorMsg}</ErrorMsg>}
-    </Wrapper>
+    </>
   );
 };
-
-const Wrapper = styled.div`
-  /* 스타일을 적용할 수 있는 컴포넌트 래퍼 */
-`;
 
 const Label = styled.label`
   display: block;
@@ -44,8 +52,7 @@ const InputField = styled.input`
 `;
 
 const ErrorMsg = styled.p`
-  color: red;
-  /* 에러 메시지 스타일링 */
+  color: ${({ theme }) => theme.colors.ErrorMsg};
 `;
 
 export default Input;
