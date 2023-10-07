@@ -1,42 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useQuery } from 'react-query';
 import Header from '../../components/common/Header/Header';
 import Carousel from '../../components/common/Carousel/Carousel';
+import Spinner from '../../components/common/Spinner/Spinner';
 import MainTags from '../../components/common/Tags/MainTags';
 import InfluencerList from '../../components/UserList/InfluencerList';
 import Sorting from '../../components/common/Sorting/Sorting';
-import { getFeed } from '../../apis/profile';
-import { getAllFeed } from '../../apis/profile';
+import { getFeed, getAllFeed } from '../../apis/profile';
 
 const HomePage = () => {
-  const [userData, setUserData] = useState([]);
   const [selectedTag, setSelectedTag] = useState('전체');
   const [orderBy, setOrderBy] = useState('RANDOM');
+  const [page, setPage] = useState(1);
 
-  const fetchData = async () => {
-    try {
-      const feedData = await getFeed(selectedTag, orderBy);
-      setUserData(feedData);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const fetchFeed = async () => {
-    try {
-      const alllFeedData = await getAllFeed(orderBy);
-      setUserData(alllFeedData);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    if (selectedTag === '전체') {
-      fetchFeed();
-    } else {
-      fetchData();
-    }
-  }, [selectedTag, orderBy]);
+  const { data: userData, isLoading } = useQuery(
+    ['feedData', selectedTag, orderBy, page],
+    async () => {
+      if (selectedTag === '전체') {
+        return getAllFeed(page, orderBy);
+      } else {
+        return getFeed(selectedTag, page, orderBy);
+      }
+    },
+  );
 
   const handleTagSelect = tag => {
     setSelectedTag(tag);
@@ -46,13 +32,26 @@ const HomePage = () => {
     setOrderBy(order);
   };
 
+  const handlePageChange = newPage => {
+    setPage(newPage);
+  };
+
   return (
     <>
       <Header />
       <Carousel />
       <MainTags selectedTag={selectedTag} onSelectTag={handleTagSelect} />
       <Sorting onSelectOrder={handleOrderBy} orderType={orderBy} />
-      {userData && <InfluencerList userList={userData} />}
+      {isLoading ? <Spinner /> : userData && <InfluencerList userList={userData} />}
+
+      {/* 페이지 번호 UI 요소 */}
+      <div>
+        <button onClick={() => handlePageChange(page - 1)} disabled={page === 1}>
+          이전 페이지
+        </button>
+        <span>페이지 {page}</span>
+        <button onClick={() => handlePageChange(page + 1)}>다음 페이지</button>
+      </div>
     </>
   );
 };
